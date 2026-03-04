@@ -68,9 +68,13 @@
                 -moz-osx-font-smoothing: grayscale;
                 font-feature-settings: "cv02", "cv03", "cv04", "cv11";
             }
-            h1, h2, h3, h4 {
-                @apply font-display text-white tracking-tight;
-                letter-spacing: -0.03em;
+            h1, h2 {
+                @apply font-display text-white;
+                letter-spacing: -0.02em;
+            }
+            h3, h4 {
+                @apply font-display text-white;
+                letter-spacing: -0.01em;
             }
             p {
                 @apply font-medium;
@@ -417,8 +421,8 @@
                         </svg>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-white">Smart Follow-Ups</h3>
-                    <p class="text-slate-500 text-base leading-relaxed font-semibold">Don't stare at a blank screen.
-                        ARCA drafts hyper-personalized responses based on inquiring properties.</p>
+                    <p class="text-slate-500 text-base leading-relaxed font-semibold">ARCA drafts hyper-personalized
+                        responses based on inquiring properties.</p>
                 </div>
 
                 <!-- Bento Item 3: Small -->
@@ -430,7 +434,7 @@
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white">Auto Scheduling</h3>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Automatic Scheduling</h3>
                     <p class="text-slate-500 text-base leading-relaxed font-semibold">Direct calendar sync. When a
                         client wants to see a property, ARCA handles the booking link.</p>
                 </div>
@@ -468,36 +472,38 @@
             <div class="grid md:grid-cols-4 gap-4 relative">
                 <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
                     <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all">
+                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
                         1</div>
-                    <h4 class="text-xl font-bold text-white mb-3">Connect</h4>
+                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">Connect Gmail</h4>
                     <p class="text-sm text-slate-500 font-semibold leading-relaxed">Securely link your inbox in one
                         click.</p>
                 </div>
 
                 <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
                     <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all">
+                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
                         2</div>
-                    <h4 class="text-xl font-bold text-white mb-3">Monitor</h4>
-                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">AI filters leads out of the noise.
-                    </p>
+                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">ARCA Monitors</h4>
+                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">AI monitors leads and filters out
+                        the noise.</p>
                 </div>
 
                 <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
                     <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all">
+                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
                         3</div>
-                    <h4 class="text-xl font-bold text-white mb-3">Draft</h4>
-                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">Hyper-aware responses await you.</p>
+                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">AI Drafts Replies</h4>
+                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">Hyper-aware responses await your
+                        review.</p>
                 </div>
 
                 <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
                     <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all">
+                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
                         4</div>
-                    <h4 class="text-xl font-bold text-white mb-3">Close</h4>
-                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">Turn speed into commissions.</p>
+                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">Close More Deals</h4>
+                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">Turn lead speed into real
+                        commissions.</p>
                 </div>
             </div>
         </section>
