@@ -5,10 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ARCA — AI CRM for Real Estate Agents</title>
+    <meta name="description"
+        content="ARCA is an AI-powered CRM that automatically captures real estate leads, drafts follow-ups, and schedules showings." />
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
         rel="stylesheet" />
 
     <script>
@@ -21,39 +23,41 @@
                         display: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
-                        background: '#050505', // Deeper black for Apple-style contrast
+                        background: '#000000',
+                        surface: '#111111',
                         primary: {
                             400: '#60a5fa',
-                            500: '#2563eb', // Restored vibrant signature blue
+                            500: '#2563eb',
                             600: '#1d4ed8',
-                            700: '#1e40af',
                         }
                     },
                     animation: {
-                        'blob': 'blob 10s infinite',
-                        'fade-in-up': 'fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'reveal': 'reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'fade-in': 'fadeIn 0.8s ease forwards',
+                        'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'glow': 'glow 4s ease-in-out infinite alternate',
+                        'card-in': 'cardIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                     },
                     keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)', opacity: 0.3 },
-                            '33%': { transform: 'translate(50px, -70px) scale(1.2)', opacity: 0.5 },
-                            '66%': { transform: 'translate(-30px, 40px) scale(0.8)', opacity: 0.3 },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)', opacity: 0.3 },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-16px)' },
                         },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
-                        reveal: {
-                            '0%': { opacity: '0', clipPath: 'inset(10% 0 10% 0)' },
-                            '100%': { opacity: '1', clipPath: 'inset(0% 0 0% 0)' },
+                        glow: {
+                            '0%': { boxShadow: '0 0 30px rgba(37,99,235,0.15)' },
+                            '100%': { boxShadow: '0 0 60px rgba(37,99,235,0.3)' },
                         },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                        cardIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px) scale(0.97)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
                         }
                     }
                 }
@@ -61,507 +65,562 @@
         }
     </script>
 
-    <style type="text/tailwindcss">
-        @layer base {
-            body {
-                @apply bg-background text-slate-300 antialiased selection:bg-primary-500/30 overflow-x-hidden relative;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-            }
-            h1, h2 {
-                @apply font-display text-white;
-                letter-spacing: -0.02em;
-            }
-            h3, h4 {
-                @apply font-display text-white;
-                letter-spacing: -0.01em;
-            }
-            p {
-                @apply font-medium;
-                letter-spacing: 0.01em;
-            }
+    <style>
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .glass-card {
-            @apply bg-white/[0.03] border border-white/[0.08] backdrop-blur-2xl shadow-2xl transition-all duration-500;
+        body {
+            background: #000000;
+            color: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
-        .glass-card:hover {
-            @apply border-white/[0.15] bg-white/[0.06] shadow-primary-500/5;
+        ::selection {
+            background: rgba(37, 99, 235, 0.3);
+        }
+
+        /* Typography — relaxed tracking so words never clump */
+        h1,
+        h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            letter-spacing: -0.015em;
+            word-spacing: 0.05em;
+        }
+
+        h3,
+        h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            letter-spacing: 0em;
+            word-spacing: 0.06em;
+        }
+
+        p {
+            letter-spacing: 0.01em;
+            word-spacing: 0.02em;
         }
 
         .text-gradient {
-            background: linear-gradient(to bottom, #ffffff 0%, #a5b4fc 100%);
+            background: linear-gradient(180deg, #ffffff 20%, #60a5fa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .glow-button {
-            @apply relative inline-flex items-center justify-center font-bold text-white transition-all duration-300;
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
-        .glow-button::before {
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tablet mockup shimmer */
+        .tablet-shimmer::before {
             content: '';
-            @apply absolute inset-0 rounded-xl bg-primary-500 blur-2xl opacity-0 transition-opacity duration-500;
-        }
-        
-        .glow-button:hover::before {
-            @apply opacity-40;
-        }
-        
-        .nav-link {
-            @apply relative text-slate-400 hover:text-white transition-colors py-2 font-semibold;
-            letter-spacing: -0.01em;
-        }
-        
-        .section-container {
-            @apply py-32 lg:py-48 max-w-7xl mx-auto px-6;
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, transparent 40%, transparent 60%, rgba(37, 99, 235, 0.1) 100%);
+            z-index: -1;
         }
 
-        .apple-shadow {
-            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5), 0 18px 36px -18px rgba(0,0,0,0.5);
-        }
-
-        .mask-fade-bottom {
-            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06) 50%, transparent);
         }
     </style>
 </head>
 
 <body>
-    <!-- Ambient Background Effects -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <!-- Ambient glow -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div
-            class="absolute top-[-10%] left-[-10%] w-[70vw] h-[70vw] bg-primary-600/10 rounded-full mix-blend-screen filter blur-[140px] animate-blob">
+            class="absolute top-[-30%] left-[-15%] w-[700px] h-[700px] bg-primary-500/[0.07] rounded-full blur-[160px]">
         </div>
-        <div class="absolute top-[10%] right-[-5%] w-[50vw] h-[50vw] bg-indigo-600/10 rounded-full mix-blend-screen filter blur-[140px] animate-blob"
-            style="animation-delay: 4s"></div>
-        <div class="absolute bottom-[-20%] left-[10%] w-[60vw] h-[60vw] bg-blue-900/10 rounded-full mix-blend-screen filter blur-[160px] animate-blob"
-            style="animation-delay: 7s"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-500/[0.05] rounded-full blur-[150px]">
+        </div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/[0.06] rounded-full blur-[180px]">
+        </div>
     </div>
 
-    <div class="relative z-10 flex flex-col min-h-screen">
+    <div class="relative z-10">
 
-        <!-- NAVBAR -->
-        <header class="fixed top-0 w-full z-50 backdrop-blur-2xl bg-black/50 border-b border-white/[0.05]">
-            <nav class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-                <div class="flex items-center gap-3 group cursor-pointer">
+        <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+        <header class="fixed top-0 w-full z-50 backdrop-blur-2xl bg-black/60 border-b border-white/[0.04]">
+            <nav class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
+                <a href="#" class="flex items-center gap-2.5 group">
                     <div
-                        class="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-white text-black font-bold text-xl shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform font-display">
-                        A
-                    </div>
-                    <span class="text-xl font-bold text-white tracking-tight font-display">ARCA</span>
+                        class="w-8 h-8 rounded-xl bg-white text-black flex items-center justify-center text-sm font-extrabold font-display group-hover:scale-110 transition-transform">
+                        A</div>
+                    <span class="text-lg font-bold text-white font-display tracking-tight">ARCA</span>
+                </a>
+
+                <div class="hidden md:flex gap-8 text-[13px] font-semibold text-slate-400">
+                    <a href="#features" class="hover:text-white transition-colors duration-200">Features</a>
+                    <a href="#how" class="hover:text-white transition-colors duration-200">Process</a>
+                    <a href="#pricing" class="hover:text-white transition-colors duration-200">Beta Access</a>
                 </div>
 
-                <div class="hidden lg:flex gap-10 text-[0.85rem] font-bold uppercase tracking-widest text-slate-500">
-                    <a href="#features" class="hover:text-white transition-colors">Features</a>
-                    <a href="#how" class="hover:text-white transition-colors">Process</a>
-                    <a href="#pricing" class="hover:text-white transition-colors">Beta Access</a>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <a href="#waitlist"
-                        class="bg-white text-black px-6 py-2.5 rounded-full text-[0.85rem] font-bold hover:scale-105 active:scale-95 transition-all">
-                        Get Early Access
-                    </a>
-                </div>
+                <a href="#waitlist"
+                    class="bg-white text-black px-5 py-2 rounded-full text-[13px] font-semibold hover:bg-slate-100 active:scale-95 transition-all duration-200">
+                    Get Early Access
+                </a>
             </nav>
         </header>
 
-        <!-- HERO -->
-        <section class="relative pt-48 pb-20 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
 
-                <div class="animate-fade-in-up flex flex-col items-start text-left">
+        <!-- ═══════════════════════ HERO ═══════════════════════ -->
+        <section class="pt-40 lg:pt-52 pb-24 lg:pb-32">
+            <div class="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+
+                <!-- Left: Copy -->
+                <div>
                     <div
-                        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-slate-400 text-[0.7rem] font-bold tracking-[0.2em] uppercase mb-8 backdrop-blur-md">
-                        <span class="w-1.5 h-1.5 rounded-full bg-primary-500 shadow-[0_0_10px_#2563eb]"></span>
+                        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-semibold text-slate-400 tracking-widest uppercase mb-8 reveal">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary-500 shadow-[0_0_8px_#2563eb]"></span>
                         AI-Powered Real Estate CRM
                     </div>
 
-                    <h1 class="text-6xl lg:text-7xl font-extrabold mb-8 leading-[1.1]">
-                        <span class="block text-white">AI CRM for</span>
+                    <h1 class="text-5xl lg:text-[4.25rem] font-extrabold leading-[1.08] mb-7 reveal"
+                        style="transition-delay:0.1s">
+                        <span class="block">AI CRM for</span>
                         <span class="text-gradient">Real Estate Agents</span>
                     </h1>
 
-                    <p class="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed font-medium">
-                        ARCA automates your inbox. It <span class="text-white">captures leads automatically</span>,
-                        drafts personalized follow-ups, and <span class="text-white">schedules showings</span> so you
-                        never lose a deal.
+                    <p class="text-lg text-slate-400 leading-relaxed mb-10 max-w-md font-medium reveal"
+                        style="transition-delay:0.2s">
+                        ARCA automates your inbox. It <span class="text-white font-semibold">captures leads
+                            automatically</span>,
+                        drafts personalized follow-ups, and <span class="text-white font-semibold">schedules
+                            showings</span> — so you never lose a deal.
                     </p>
 
-                    <form id="waitlist" class="flex flex-col sm:flex-row gap-3 w-full max-w-lg mb-10">
-                        <div class="relative flex-grow">
-                            <input type="email" placeholder="Enter your work email" required
-                                class="w-full px-6 py-4 rounded-2xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 transition-all font-medium" />
-                        </div>
-                        <button type="submit" class="glow-button group shrink-0">
-                            <div
-                                class="relative px-8 py-4 rounded-2xl bg-white text-black font-bold flex items-center gap-2 transition-transform active:scale-95">
-                                <span>Join the Waitlist</span>
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </div>
+                    <form id="waitlist" class="flex flex-col sm:flex-row gap-3 max-w-md reveal"
+                        style="transition-delay:0.3s">
+                        <input type="email" placeholder="Enter your work email" required
+                            class="flex-1 px-5 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-transparent transition-all" />
+                        <button type="submit"
+                            class="shrink-0 px-6 py-3.5 rounded-xl bg-white text-black text-sm font-bold flex items-center gap-2 hover:bg-slate-100 active:scale-[0.97] transition-all duration-200">
+                            Join Waitlist
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
                         </button>
                     </form>
                 </div>
 
-                <!-- PREMIUM TABLET MOCKUP - SIDE BY SIDE -->
-                <div class="w-full animate-reveal relative">
-                    <div class="absolute -inset-20 bg-primary-500/15 blur-[120px] rounded-full pointer-events-none">
+                <!-- Right: Tablet Mockup -->
+                <div class="relative flex justify-center lg:justify-end reveal" style="transition-delay:0.35s">
+                    <!-- Ambient glow behind tablet -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="w-80 h-80 bg-primary-500/20 rounded-full blur-[100px]"></div>
                     </div>
 
-                    <!-- Device Frame (Tablet) -->
-                    <div
-                        class="relative rounded-[3.5rem] bg-black border-[12px] border-[#1a1c1e] shadow-2xl overflow-hidden aspect-[4/5] max-w-md mx-auto lg:ml-auto">
-                        <!-- Screen Content -->
-                        <div class="h-full bg-[#050505] overflow-y-auto">
-                            <!-- Screen Header -->
-                            <div class="flex justify-between items-center px-6 pt-8 pb-4">
-                                <span
-                                    class="text-[0.65rem] font-bold text-primary-400 uppercase tracking-[0.2em] font-display">Arca
-                                    Intelligence</span>
-                                <div class="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_#2563eb]"></div>
+                    <!-- iPad-style frame -->
+                    <div class="relative animate-float tablet-shimmer" style="width: 380px;">
+                        <div
+                            class="rounded-[2.5rem] bg-[#1a1a1a] p-3 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.8)] animate-glow">
+                            <!-- Bezel camera notch -->
+                            <div
+                                class="absolute top-4 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#222] border border-[#333]">
                             </div>
 
-                            <!-- Interface Content -->
-                            <div class="space-y-4 p-4 pb-12">
-                                <!-- Card 1: New Lead -->
-                                <div
-                                    class="bg-[#111111] rounded-2xl overflow-hidden border border-white/5 shadow-xl relative group">
-                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-500"></div>
-                                    <div class="p-5">
-                                        <div class="flex justify-between items-start mb-3">
-                                            <h4 class="text-base font-bold text-white">New Lead Captured</h4>
-                                            <span
-                                                class="px-2 py-0.5 rounded-full bg-white/5 text-[0.6rem] text-slate-500 font-bold">Just
-                                                now</span>
-                                        </div>
-                                        <p class="text-xs text-slate-400 leading-relaxed mb-5">Sarah Jenkins asked about
-                                            Oak Ridge Villa on Zillow. Follow-up drafted.</p>
-                                        <div class="flex gap-2">
-                                            <button
-                                                class="px-4 py-2 rounded-lg bg-primary-600 text-white text-[0.7rem] font-bold shadow-lg shadow-primary-500/20 hover:bg-primary-500 transition-colors">Approve
-                                                Draft</button>
-                                            <button
-                                                class="px-4 py-2 rounded-lg bg-[#222222] text-slate-300 text-[0.7rem] font-bold hover:bg-[#333333] transition-colors">Edit</button>
-                                        </div>
+                            <!-- Screen -->
+                            <div class="rounded-[2rem] bg-black overflow-hidden">
+                                <!-- Header bar -->
+                                <div class="flex justify-between items-center px-5 pt-7 pb-3">
+                                    <span
+                                        class="text-[10px] font-bold text-primary-400 uppercase tracking-[0.2em] font-display">Arca
+                                        Intelligence</span>
+                                    <div
+                                        class="w-2 h-2 rounded-full bg-primary-500 shadow-[0_0_8px_#2563eb] animate-pulse">
                                     </div>
                                 </div>
 
-                                <!-- Card 2: Showing Scheduled -->
-                                <div
-                                    class="bg-[#111111] rounded-2xl overflow-hidden border border-white/5 shadow-xl relative">
-                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500"></div>
-                                    <div class="p-5">
-                                        <div class="flex justify-between items-start mb-3">
-                                            <h4 class="text-base font-bold text-white">Showing Scheduled</h4>
-                                            <span
-                                                class="px-2 py-0.5 rounded-full bg-white/5 text-[0.6rem] text-slate-500 font-bold">2h
-                                                ago</span>
+                                <!-- Cards -->
+                                <div class="space-y-3 px-3 pb-8">
+                                    <!-- Card 1: New Lead -->
+                                    <div
+                                        class="bg-[#0d0d0d] rounded-2xl border border-white/[0.04] relative overflow-hidden">
+                                        <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-primary-500 rounded-full">
                                         </div>
-                                        <p class="text-xs text-slate-400 leading-relaxed mb-4">Mike Adams confirmed
-                                            showing for tomorrow at 2:00 PM. Calendar updated.</p>
-                                        <div class="flex items-center gap-2 text-emerald-400">
-                                            <div
-                                                class="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <div class="p-4 pl-5">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <span class="text-[13px] font-bold text-white"
+                                                    style="word-spacing:0.08em">New Lead Captured</span>
+                                                <span
+                                                    class="text-[9px] text-slate-500 bg-white/5 px-2 py-0.5 rounded-full font-medium">Just
+                                                    now</span>
+                                            </div>
+                                            <p class="text-[11px] text-slate-400 leading-relaxed mb-3"
+                                                style="word-spacing:0.04em">Sarah Jenkins asked about Oak Ridge Villa on
+                                                Zillow. Follow-up drafted.</p>
+                                            <div class="flex gap-2">
+                                                <span
+                                                    class="px-3 py-1.5 rounded-lg bg-primary-600 text-white text-[10px] font-bold">Approve
+                                                    Draft</span>
+                                                <span
+                                                    class="px-3 py-1.5 rounded-lg bg-white/[0.06] text-slate-300 text-[10px] font-semibold">Edit</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 2: Showing -->
+                                    <div
+                                        class="bg-[#0d0d0d] rounded-2xl border border-white/[0.04] relative overflow-hidden">
+                                        <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-emerald-500 rounded-full">
+                                        </div>
+                                        <div class="p-4 pl-5">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <span class="text-[13px] font-bold text-white"
+                                                    style="word-spacing:0.08em">Showing Scheduled</span>
+                                                <span
+                                                    class="text-[9px] text-slate-500 bg-white/5 px-2 py-0.5 rounded-full font-medium">2h
+                                                    ago</span>
+                                            </div>
+                                            <p class="text-[11px] text-slate-400 leading-relaxed mb-3"
+                                                style="word-spacing:0.04em">Mike Adams confirmed showing for tomorrow at
+                                                2:00 PM. Calendar updated.</p>
+                                            <div class="flex items-center gap-1.5">
+                                                <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor"
+                                                    viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd"
                                                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                        clip-rule="evenodd"></path>
+                                                        clip-rule="evenodd" />
                                                 </svg>
+                                                <span class="text-[10px] font-semibold text-emerald-400"
+                                                    style="word-spacing:0.05em">Synced to Google Calendar</span>
                                             </div>
-                                            <span class="text-[0.65rem] font-bold tracking-wide">Synced to Google
-                                                Calendar</span>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Card 3: Follow-up Needed -->
-                                <div
-                                    class="bg-[#111111] rounded-2xl overflow-hidden border border-white/5 shadow-xl relative">
-                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-500"></div>
-                                    <div class="p-5">
-                                        <div class="flex justify-between items-start mb-3">
-                                            <h4 class="text-base font-bold text-white">Follow-up Needed</h4>
-                                            <span
-                                                class="px-2 py-0.5 rounded-full bg-amber-500/10 text-[0.6rem] text-amber-500 font-bold">High
-                                                Priority</span>
+                                    <!-- Card 3: Follow-up -->
+                                    <div
+                                        class="bg-[#0d0d0d] rounded-2xl border border-white/[0.04] relative overflow-hidden">
+                                        <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-amber-500 rounded-full">
                                         </div>
-                                        <p class="text-xs text-slate-400 leading-relaxed">John Smith hasn't replied to
-                                            the offer sheet sent 2 days ago.</p>
+                                        <div class="p-4 pl-5">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <span class="text-[13px] font-bold text-white"
+                                                    style="word-spacing:0.08em">Follow-up Needed</span>
+                                                <span
+                                                    class="text-[9px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full font-bold"
+                                                    style="word-spacing:0.04em">High Priority</span>
+                                            </div>
+                                            <p class="text-[11px] text-slate-400 leading-relaxed"
+                                                style="word-spacing:0.04em">John Smith hasn't replied to the offer sheet
+                                                sent 2 days ago.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </section>
 
 
-        <!-- PROBLEM -->
-        <section class="section-container border-t border-white/[0.05]">
-            <div class="text-center mb-24 max-w-3xl mx-auto">
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight">
-                    Real Estate Leads <br /><span class="text-white/30">Get Lost in Email</span>
-                </h2>
-                <p class="text-slate-400 text-lg md:text-xl font-medium">Agents drop the ball not because they don't
-                    care, but because managing leads manually across platforms is impossible.</p>
-            </div>
+        <!-- Divider -->
+        <div class="section-divider max-w-6xl mx-auto"></div>
 
-            <div class="grid md:grid-cols-4 gap-4">
-                <div class="glass-card p-8 rounded-[2rem] flex flex-col items-center text-center">
-                    <div class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center mb-6 text-red-500">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-3">Leads Buried</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed font-semibold">Zillow and Realtor leads disappear
-                        in chaotic email threads.</p>
+
+        <!-- ═══════════════════════ PROBLEM ═══════════════════════ -->
+        <section class="py-28 lg:py-40">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-20 max-w-2xl mx-auto reveal">
+                    <h2 class="text-4xl md:text-[3.5rem] font-extrabold leading-tight mb-6">
+                        Real Estate Leads<br /><span class="text-white/25">Get Lost in Email</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed">Agents drop the ball not because they
+                        don't care — but because manually managing leads across platforms is impossible.</p>
                 </div>
 
-                <div class="glass-card p-8 rounded-[2rem] flex flex-col items-center text-center">
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     <div
-                        class="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6 text-orange-500">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal">
+                        <div class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-5">
+                            <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Leads Buried</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Zillow and Realtor
+                            leads disappear in chaotic email threads.</p>
                     </div>
-                    <h3 class="font-bold text-white text-lg mb-3">Missed Follow-ups</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed font-semibold">Busy agents often forget to reply
-                        within the critical first hour.</p>
-                </div>
 
-                <div class="glass-card p-8 rounded-[2rem] flex flex-col items-center text-center">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center mb-6 text-amber-500">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-3">Manual CRM Entry</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed font-semibold">Typing contact details into clunky
-                        CRMs wastes hours every week.</p>
-                </div>
-
-                <div class="glass-card p-8 rounded-[2rem] flex flex-col items-center text-center">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-slate-500/10 flex items-center justify-center mb-6 text-slate-400">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-white text-lg mb-3">Lost Deals</h3>
-                    <p class="text-sm text-slate-500 leading-relaxed font-semibold">Slow responses and disorganization
-                        mean lost opportunities.</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- FEATURES (BENTO GRID) -->
-        <section id="features" class="section-container border-t border-white/[0.05]">
-            <div class="text-center mb-24 max-w-3xl mx-auto">
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight">
-                    ARCA Runs Your CRM <br /><span class="text-primary-400">Automatically</span>
-                </h2>
-                <p class="text-slate-400 text-lg md:text-xl font-medium">Stop doing data entry. ARCA works quietly in
-                    the background, analyzing your communications and building your pipeline.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Bento Item 1: Large -->
-                <div class="md:col-span-2 glass-card p-12 rounded-[2.5rem] relative overflow-hidden group">
-                    <div class="relative z-10 max-w-md">
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal"
+                        style="transition-delay:0.08s">
                         <div
-                            class="w-14 h-14 rounded-2xl bg-primary-500/10 flex items-center justify-center text-primary-400 mb-8 border border-primary-500/20 group-hover:scale-110 transition-transform">
-                            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            class="w-11 h-11 rounded-xl bg-orange-500/10 flex items-center justify-center mx-auto mb-5">
+                            <svg class="w-5 h-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Missed Follow-ups
+                        </h3>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Busy agents often
+                            forget to reply within the critical first hour.</p>
+                    </div>
+
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal"
+                        style="transition-delay:0.16s">
+                        <div class="w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center mx-auto mb-5">
+                            <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Manual CRM Entry</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Typing contact
+                            details into clunky CRMs wastes hours every week.</p>
+                    </div>
+
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal"
+                        style="transition-delay:0.24s">
+                        <div class="w-11 h-11 rounded-xl bg-slate-500/10 flex items-center justify-center mx-auto mb-5">
+                            <svg class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                            </svg>
+                        </div>
+                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Lost Deals</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Slow responses and
+                            disorganization mean lost opportunities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Divider -->
+        <div class="section-divider max-w-6xl mx-auto"></div>
+
+
+        <!-- ═══════════════════════ FEATURES ═══════════════════════ -->
+        <section id="features" class="py-28 lg:py-40">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-20 max-w-2xl mx-auto reveal">
+                    <h2 class="text-4xl md:text-[3.5rem] font-extrabold leading-tight mb-6">
+                        ARCA Runs Your CRM<br /><span class="text-primary-400">Automatically</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed">Stop doing data entry. ARCA works
+                        quietly in the background, analyzing your communications and building your pipeline.</p>
+                </div>
+
+                <!-- 2x2 uniform grid -->
+                <div class="grid md:grid-cols-2 gap-5">
+                    <div
+                        class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-400 mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
                         </div>
-                        <h3 class="text-3xl font-bold mb-6 text-white">AI Lead Detection</h3>
-                        <p class="text-slate-400 text-lg leading-relaxed font-semibold">ARCA continuously scans incoming
-                            emails from portals, identifies lead intent, and automatically extracts names, phone
-                            numbers, and property interests to create a CRM profile instantly.</p>
+                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">AI Lead Detection
+                        </h3>
+                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">ARCA scans
+                            incoming emails, identifies lead intent, and automatically extracts names, phone numbers,
+                            and property interests to create CRM profiles instantly.</p>
                     </div>
-                    <!-- Decorative Visual -->
-                    <div
-                        class="absolute right-[-10%] bottom-[-10%] w-[400px] h-full bg-gradient-to-br from-primary-500/10 to-transparent blur-3xl rounded-full pointer-events-none">
-                    </div>
-                </div>
 
-                <!-- Bento Item 2: Small -->
-                <div class="glass-card p-10 rounded-[2.5rem] relative overflow-hidden group">
-                    <div
-                        class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-primary-400 mb-8 border border-white/10 group-hover:bg-primary-500/10 transition-all">
-                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white">Smart Follow-Ups</h3>
-                    <p class="text-slate-500 text-base leading-relaxed font-semibold">ARCA drafts hyper-personalized
-                        responses based on inquiring properties.</p>
-                </div>
-
-                <!-- Bento Item 3: Small -->
-                <div class="glass-card p-10 rounded-[2.5rem] relative overflow-hidden group">
-                    <div
-                        class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-primary-400 mb-8 border border-white/10 group-hover:bg-primary-500/10 transition-all">
-                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white">Automatic Scheduling</h3>
-                    <p class="text-slate-500 text-base leading-relaxed font-semibold">Direct calendar sync. When a
-                        client wants to see a property, ARCA handles the booking link.</p>
-                </div>
-
-                <!-- Bento Item 4: Large -->
-                <div class="md:col-span-2 glass-card p-12 rounded-[2.5rem] relative overflow-hidden group">
-                    <div class="relative z-10 max-w-md">
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                        style="transition-delay:0.08s">
                         <div
-                            class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-primary-400 mb-8 border border-white/10 group-hover:bg-primary-500/10 transition-all">
-                            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            class="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">Smart Follow-Ups</h3>
+                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">ARCA drafts
+                            hyper-personalized email and text responses based on the property they inquired about. Just
+                            review and hit send.</p>
+                    </div>
+
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                        style="transition-delay:0.16s">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">Automatic Scheduling
+                        </h3>
+                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">Seamlessly
+                            connects to your Google Calendar. When a client requests to see a property, ARCA checks
+                            availability and sends a one-click booking link.</p>
+                    </div>
+
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                        style="transition-delay:0.24s">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                             </svg>
                         </div>
-                        <h3 class="text-3xl font-bold mb-6 text-white">Daily Priorities</h3>
-                        <p class="text-slate-400 text-lg leading-relaxed font-semibold">Start your day knowing exactly
-                            who to contact. ARCA highlights hot leads and organizes your tasks by priority.</p>
-                    </div>
-                    <div
-                        class="absolute right-5 bottom-[-10%] w-[300px] h-[300px] bg-indigo-500/10 blur-[100px] rounded-full">
+                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">Daily Priorities</h3>
+                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">Start your day
+                            knowing exactly who to contact. ARCA highlights hot leads, reminds you of pending
+                            follow-ups, and organizes tasks by priority.</p>
                     </div>
                 </div>
             </div>
         </section>
 
 
-        <!-- HOW IT WORKS -->
-        <section id="how" class="section-container border-t border-white/[0.05]">
-            <div class="text-center mb-24 max-w-3xl mx-auto">
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight">Flow Built for <span
-                        class="text-primary-400">Success</span></h2>
-                <p class="text-slate-400 text-lg md:text-xl font-medium">Four steps to absolute lead mastery.</p>
-            </div>
+        <!-- Divider -->
+        <div class="section-divider max-w-6xl mx-auto"></div>
 
-            <div class="grid md:grid-cols-4 gap-4 relative">
-                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
+
+        <!-- ═══════════════════════ HOW IT WORKS ═══════════════════════ -->
+        <section id="how" class="py-28 lg:py-40">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-20 max-w-2xl mx-auto reveal">
+                    <h2 class="text-4xl md:text-[3.5rem] font-extrabold leading-tight mb-6">
+                        How It <span class="text-primary-400">Works</span>
+                    </h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed">Four simple steps to never miss a lead
+                        again.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
-                        1</div>
-                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">Connect Gmail</h4>
-                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">Securely link your inbox in one
-                        click.</p>
-                </div>
-
-                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
-                    <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
-                        2</div>
-                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">ARCA Monitors</h4>
-                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">AI monitors leads and filters out
-                        the noise.</p>
-                </div>
-
-                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
-                    <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
-                        3</div>
-                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">AI Drafts Replies</h4>
-                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">Hyper-aware responses await your
-                        review.</p>
-                </div>
-
-                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center text-center group">
-                    <div
-                        class="w-20 h-20 rounded-full bg-slate-900 border-2 border-white/5 flex items-center justify-center mb-8 text-2xl font-bold text-white group-hover:border-primary-500/50 transition-all shadow-[0_0_30px_rgba(255,255,255,0.02)]">
-                        4</div>
-                    <h4 class="text-xl font-bold text-white mb-3 tracking-normal">Close More Deals</h4>
-                    <p class="text-sm text-slate-500 font-semibold leading-relaxed">Turn lead speed into real
-                        commissions.</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- CTA -->
-        <section id="pricing" class="section-container">
-            <div class="glass-card rounded-[3.5rem] p-16 md:p-32 text-center relative overflow-hidden group">
-                <!-- Inner Glow -->
-                <div
-                    class="absolute inset-0 bg-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-                </div>
-
-                <h2 class="text-5xl md:text-7xl font-extrabold mb-10 relative z-10 leading-tight">
-                    Never Lose a <br /> Real Estate Lead Again
-                </h2>
-                <p class="text-xl md:text-2xl text-slate-400 mb-14 max-w-2xl mx-auto relative z-10 font-medium">
-                    Join the exclusive beta and get free access to ARCA before we launch to the public.
-                </p>
-
-                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto relative z-10">
-                    <input type="email" placeholder="Enter your email" required
-                        class="flex-grow px-8 py-5 rounded-2xl bg-white/[0.05] border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 backdrop-blur-md font-medium" />
-                    <button type="submit" class="glow-button shrink-0 active:scale-95 transition-transform">
+                        class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal">
                         <div
-                            class="relative px-10 py-5 rounded-2xl bg-white text-black font-bold flex items-center gap-2">
-                            <span>Get Early Access</span>
-                        </div>
-                    </button>
-                </form>
+                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            1</div>
+                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">Connect Gmail</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Securely link your
+                            inbox in one click.</p>
+                    </div>
 
-                <p class="mt-10 text-sm text-slate-500 relative z-10 font-semibold uppercase tracking-widest">Limited
-                    spots available for beta testers</p>
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                        style="transition-delay:0.08s">
+                        <div
+                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            2</div>
+                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">ARCA Monitors</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">AI finds leads and
+                            filters out the noise.</p>
+                    </div>
+
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                        style="transition-delay:0.16s">
+                        <div
+                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            3</div>
+                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">AI Drafts Replies</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Context-aware
+                            responses await your review.</p>
+                    </div>
+
+                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                        style="transition-delay:0.24s">
+                        <div
+                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            4</div>
+                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">Close More Deals</h4>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Turn speed-to-lead
+                            into real commissions.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
 
-        <!-- FOOTER -->
-        <footer class="py-20 border-t border-white/5 relative z-10 bg-black mt-auto">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-20">
-                    <div class="max-w-xs">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div
-                                class="w-8 h-8 rounded-xl bg-white text-black flex items-center justify-center font-bold text-lg font-display">
-                                A</div>
-                            <span class="text-xl font-bold text-white font-display">ARCA</span>
-                        </div>
-                        <p class="text-slate-500 text-sm font-semibold leading-relaxed">Defining the next generation of
-                            real estate intelligence. Built for agents who demand more.</p>
+        <!-- Divider -->
+        <div class="section-divider max-w-6xl mx-auto"></div>
+
+
+        <!-- ═══════════════════════ CTA ═══════════════════════ -->
+        <section id="pricing" class="py-28 lg:py-40">
+            <div class="max-w-6xl mx-auto px-6">
+                <div
+                    class="bg-white/[0.02] border border-white/[0.06] rounded-3xl p-14 md:p-24 text-center relative overflow-hidden group hover:border-white/[0.1] transition-all duration-500 reveal">
+                    <!-- Glow -->
+                    <div
+                        class="absolute inset-0 bg-primary-500/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
                     </div>
 
-                    <div
-                        class="grid grid-cols-2 md:grid-cols-3 gap-12 text-sm font-bold uppercase tracking-widest text-slate-500">
-                        <div class="flex flex-col gap-4">
-                            <span class="text-white text-xs mb-2">Product</span>
+                    <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-8 relative z-10">
+                        Never Lose a<br />Real Estate Lead Again
+                    </h2>
+                    <p
+                        class="text-lg md:text-xl text-slate-400 mb-12 max-w-lg mx-auto relative z-10 font-medium leading-relaxed">
+                        Join the exclusive beta and get free access to ARCA before we launch to the public.
+                    </p>
+
+                    <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative z-10">
+                        <input type="email" placeholder="Enter your email" required
+                            class="flex-1 px-5 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all" />
+                        <button type="submit"
+                            class="shrink-0 px-7 py-3.5 rounded-xl bg-white text-black text-sm font-bold hover:bg-slate-100 active:scale-[0.97] transition-all duration-200">
+                            Get Early Access
+                        </button>
+                    </form>
+
+                    <p class="mt-8 text-xs text-slate-500 relative z-10 font-semibold uppercase tracking-widest"
+                        style="word-spacing:0.1em">Limited spots available for beta testers</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+        <footer class="border-t border-white/[0.04] py-16">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+                    <div class="max-w-xs">
+                        <div class="flex items-center gap-2.5 mb-5">
+                            <div
+                                class="w-7 h-7 rounded-lg bg-white text-black flex items-center justify-center text-xs font-extrabold font-display">
+                                A</div>
+                            <span class="text-base font-bold text-white font-display">ARCA</span>
+                        </div>
+                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Defining the next
+                            generation of real estate intelligence. Built for agents who demand more.</p>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-12 text-[12px] text-slate-500">
+                        <div class="flex flex-col gap-3">
+                            <span
+                                class="text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Product</span>
                             <a href="#" class="hover:text-white transition-colors">Features</a>
                             <a href="#" class="hover:text-white transition-colors">Beta</a>
                         </div>
-                        <div class="flex flex-col gap-4">
-                            <span class="text-white text-xs mb-2">Legal</span>
+                        <div class="flex flex-col gap-3">
+                            <span
+                                class="text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Legal</span>
                             <a href="#" class="hover:text-white transition-colors">Privacy</a>
                             <a href="#" class="hover:text-white transition-colors">Terms</a>
                         </div>
-                        <div class="flex flex-col gap-4">
-                            <span class="text-white text-xs mb-2">Connect</span>
+                        <div class="flex flex-col gap-3">
+                            <span
+                                class="text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Connect</span>
                             <a href="#" class="hover:text-white transition-colors">Twitter</a>
                             <a href="#" class="hover:text-white transition-colors">Contact</a>
                         </div>
@@ -569,13 +628,12 @@
                 </div>
 
                 <div
-                    class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[0.7rem] font-bold text-slate-600 uppercase tracking-widest">
-                    <span>© 2026 ARCA AI. All rights reserved.</span>
-                    <div class="flex gap-8">
+                    class="pt-8 border-t border-white/[0.04] flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] text-slate-600 uppercase tracking-widest">
+                    <span>&copy; 2026 ARCA AI. All rights reserved.</span>
+                    <div class="flex items-center gap-6">
                         <span>Designed in California</span>
-                        <span class="flex items-center gap-2">
-                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div> System Operational
-                        </span>
+                        <span class="flex items-center gap-1.5"><span
+                                class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> System Operational</span>
                     </div>
                 </div>
             </div>
@@ -583,26 +641,18 @@
 
     </div>
 
+    <!-- Scroll Reveal Script -->
     <script>
-        // Simple Scroll Reveal Implementation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fade-in-up');
+                    entry.target.classList.add('visible');
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('section, .glass-card, .bento-item').forEach(el => {
-            el.style.opacity = '0';
-            observer.observe(el);
-        });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 
