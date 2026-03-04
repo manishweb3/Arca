@@ -1,303 +1,324 @@
-
 <!DOCTYPE html>
 <html class="dark" lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ARCA | AI CRM for Real Estate Agents</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>ARCA — AI CRM for Real Estate Agents</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700;0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<style type="text/tailwindcss">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+        rel="stylesheet" />
 
-@layer base {
+    <style type="text/tailwindcss">
+
+        @layer base {
+
 body {
 @apply bg-[#020617] text-slate-300 font-['Inter'] antialiased;
 }
+
 h1,h2,h3,h4 {
 @apply font-['Plus_Jakarta_Sans'] text-white tracking-tight;
 }
+
 }
 
 .glass-card {
 background: rgba(255,255,255,0.03);
-backdrop-filter: blur(12px);
 border:1px solid rgba(255,255,255,0.08);
-}
-
-.phone-mockup{
-background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
-box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);
-border:1px solid rgba(255,255,255,0.2);
-}
-
-.nav-link{
-@apply text-sm font-medium text-slate-400 hover:text-white transition;
+backdrop-filter: blur(12px);
 }
 
 </style>
-
-<script>
-tailwind.config = {
-darkMode:"class",
-theme:{
-extend:{
-colors:{
-primary:"#3b82f6"
-}
-}
-}
-}
-</script>
 
 </head>
 
 <body>
 
-<header class="fixed top-0 w-full z-50 px-6 py-6 backdrop-blur">
-<nav class="max-w-7xl mx-auto flex justify-between items-center">
+    <div class="min-h-screen flex flex-col">
 
-<div class="flex items-center gap-2">
-<div class="size-8 bg-blue-600 rounded-lg flex items-center justify-center">
-<span class="material-symbols-outlined text-white text-xl">dataset</span>
-</div>
-<span class="text-xl font-bold text-white">ARCA</span>
-</div>
+        <!-- NAVBAR -->
 
-<div class="hidden md:flex gap-8">
-<a class="nav-link" href="#features">Features</a>
-<a class="nav-link" href="#how">How it works</a>
-<a class="nav-link" href="#pricing">Pricing</a>
-</div>
+        <header class="fixed top-0 w-full z-50 backdrop-blur px-6 py-5">
 
-<div class="flex gap-4">
-<button class="nav-link">Sign In</button>
-<a href="#waitlist" class="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-50">
-Get Early Access
-</a>
-</div>
+            <nav class="max-w-7xl mx-auto flex justify-between items-center">
 
-</nav>
-</header>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg"></div>
+                    <span class="text-xl font-bold text-white">ARCA</span>
+                </div>
 
-<!-- HERO -->
+                <div class="hidden md:flex gap-8 text-sm text-slate-400">
 
-<section class="min-h-screen flex items-center pt-24 relative overflow-hidden">
+                    <a href="#features" class="hover:text-white">Features</a>
+                    <a href="#how" class="hover:text-white">How it Works</a>
+                    <a href="#pricing" class="hover:text-white">Pricing</a>
 
-<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15),transparent_60%)]"></div>
+                </div>
 
-<div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 px-6 items-center">
+                <a href="#waitlist" class="bg-white text-black px-5 py-2 rounded-full text-sm font-semibold">
+                    Join Waitlist
+                </a>
 
-<div>
+            </nav>
 
-<div class="text-blue-400 text-xs uppercase tracking-widest font-semibold mb-6">
-AI‑Powered Real Estate CRM
-</div>
+        </header>
 
-<h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6">
-AI CRM for <br/>Real Estate Agents
-</h1>
 
-<p class="text-xl text-slate-400 mb-10 max-w-xl">
-ARCA reads your emails, captures leads automatically, drafts follow‑ups,
-and schedules showings so you never lose a deal.
-</p>
+        <!-- HERO -->
 
-<div id="waitlist" class="flex flex-col sm:flex-row gap-4 mb-6">
+        <section class="min-h-screen flex items-center pt-24">
 
-<input placeholder="Enter your email"
-class="px-6 py-4 rounded-xl bg-white/5 border border-white/10 w-full"/>
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 px-6 items-center">
 
-<button class="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-semibold">
-Join the Waitlist
-</button>
+                <div>
 
-</div>
+                    <p class="text-blue-400 text-sm uppercase tracking-widest mb-6">
+                        AI Powered Real Estate CRM
+                    </p>
 
-<p class="text-sm text-slate-500">
-Works with Gmail • Google Calendar • Zillow Leads
-</p>
+                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                        AI CRM for <br>
+                        Real Estate Agents
+                    </h1>
 
-</div>
+                    <p class="text-xl text-slate-400 mb-10 max-w-xl">
+                        ARCA reads your emails, captures leads automatically, drafts follow-ups, and schedules showings
+                        so you never lose a deal.
+                    </p>
 
-<div class="flex justify-center">
+                    <div id="waitlist" class="flex flex-col sm:flex-row gap-4">
 
-<div class="phone-mockup rounded-[3rem] p-4 w-[340px] h-[640px]">
+                        <input type="email" placeholder="Enter your email"
+                            class="px-6 py-4 rounded-xl bg-white/5 border border-white/10 w-full" />
 
-<div class="bg-[#020617] rounded-[2rem] p-6 h-full border border-white/5">
+                        <button class="bg-blue-600 hover:bg-blue-500 px-8 py-4 rounded-xl font-semibold">
+                            Join Waitlist
+                        </button>
 
-<div class="text-xs text-blue-400 uppercase font-bold mb-3">
-ARCA Intelligence
-</div>
+                    </div>
 
-<h4 class="text-lg font-semibold mb-2">
-New Lead Captured
-</h4>
+                    <p class="mt-4 text-sm text-slate-500">
+                        Works with Gmail • Google Calendar • Zillow • Realtor
+                    </p>
 
-<p class="text-sm text-slate-400">
-Sarah Jenkins asked about Oak Ridge Villa.
-Follow‑up sent and showing scheduled for tomorrow.
-</p>
+                </div>
 
-</div>
 
-</div>
+                <!-- PRODUCT MOCKUP -->
 
-</div>
+                <div class="glass-card rounded-3xl p-8">
 
-</div>
+                    <h3 class="text-white text-lg mb-4 font-semibold">
+                        Lead Pipeline
+                    </h3>
 
-</section>
+                    <div class="space-y-4">
 
+                        <div class="p-4 bg-white/5 rounded-xl">
+                            New Lead — Sarah Jenkins
+                        </div>
 
-<!-- PROBLEM -->
+                        <div class="p-4 bg-white/5 rounded-xl">
+                            Showing Scheduled — Mike Adams
+                        </div>
 
-<section class="py-32">
+                        <div class="p-4 bg-white/5 rounded-xl">
+                            Follow-up Needed — John Smith
+                        </div>
 
-<div class="max-w-6xl mx-auto text-center px-6">
+                    </div>
 
-<h2 class="text-4xl font-bold mb-16">
-Real Estate Leads Get Lost in Email
-</h2>
+                </div>
 
-<div class="grid md:grid-cols-4 gap-8">
+            </div>
 
-<div class="glass-card p-6 rounded-2xl">
-<h3 class="font-semibold mb-2">Leads buried in inbox</h3>
-<p class="text-sm text-slate-400">Zillow and Realtor leads disappear in email threads.</p>
-</div>
+        </section>
 
-<div class="glass-card p-6 rounded-2xl">
-<h3 class="font-semibold mb-2">Missed follow‑ups</h3>
-<p class="text-sm text-slate-400">Busy agents forget to reply in time.</p>
-</div>
 
-<div class="glass-card p-6 rounded-2xl">
-<h3 class="font-semibold mb-2">Manual CRM entry</h3>
-<p class="text-sm text-slate-400">Typing leads into CRMs wastes hours.</p>
-</div>
+        <!-- PROBLEM -->
 
-<div class="glass-card p-6 rounded-2xl">
-<h3 class="font-semibold mb-2">Lost deals</h3>
-<p class="text-sm text-slate-400">Slow responses mean lost opportunities.</p>
-</div>
+        <section class="py-28">
 
-</div>
+            <div class="max-w-6xl mx-auto text-center px-6">
 
-</div>
+                <h2 class="text-4xl font-bold mb-16">
+                    Real Estate Leads Get Lost in Email
+                </h2>
 
-</section>
+                <div class="grid md:grid-cols-4 gap-8">
 
+                    <div class="glass-card p-6 rounded-2xl">
+                        <h3 class="font-semibold mb-2">Leads buried in inbox</h3>
+                        <p class="text-sm text-slate-400">
+                            Zillow and Realtor leads disappear in email threads.
+                        </p>
+                    </div>
 
-<!-- FEATURES -->
+                    <div class="glass-card p-6 rounded-2xl">
+                        <h3 class="font-semibold mb-2">Missed follow-ups</h3>
+                        <p class="text-sm text-slate-400">
+                            Busy agents forget to reply in time.
+                        </p>
+                    </div>
 
-<section id="features" class="py-32 bg-white/5">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <h3 class="font-semibold mb-2">Manual CRM entry</h3>
+                        <p class="text-sm text-slate-400">
+                            Typing leads into CRMs wastes hours every week.
+                        </p>
+                    </div>
 
-<div class="max-w-6xl mx-auto px-6">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <h3 class="font-semibold mb-2">Lost deals</h3>
+                        <p class="text-sm text-slate-400">
+                            Slow responses mean lost opportunities.
+                        </p>
+                    </div>
 
-<h2 class="text-4xl font-bold text-center mb-20">
-ARCA Runs Your CRM Automatically
-</h2>
+                </div>
 
-<div class="grid md:grid-cols-2 gap-10">
+            </div>
 
-<div class="glass-card p-8 rounded-2xl">
-<h3 class="text-xl font-semibold mb-3">AI Lead Detection</h3>
-<p class="text-slate-400">Reads incoming emails and automatically creates CRM leads.</p>
-</div>
+        </section>
 
-<div class="glass-card p-8 rounded-2xl">
-<h3 class="text-xl font-semibold mb-3">Smart Follow‑Ups</h3>
-<p class="text-slate-400">AI drafts personalized responses instantly.</p>
-</div>
 
-<div class="glass-card p-8 rounded-2xl">
-<h3 class="text-xl font-semibold mb-3">Automatic Scheduling</h3>
-<p class="text-slate-400">Connects to Google Calendar and schedules showings.</p>
-</div>
+        <!-- FEATURES -->
 
-<div class="glass-card p-8 rounded-2xl">
-<h3 class="text-xl font-semibold mb-3">Daily Priorities</h3>
-<p class="text-slate-400">Shows which leads need attention today.</p>
-</div>
+        <section id="features" class="py-28 bg-white/5">
 
-</div>
+            <div class="max-w-6xl mx-auto px-6">
 
-</div>
+                <h2 class="text-4xl text-center font-bold mb-20">
+                    ARCA Runs Your CRM Automatically
+                </h2>
 
-</section>
+                <div class="grid md:grid-cols-2 gap-10">
 
+                    <div class="glass-card p-8 rounded-2xl">
+                        <h3 class="text-xl font-semibold mb-3">AI Lead Detection</h3>
+                        <p class="text-slate-400">
+                            Reads incoming emails and automatically creates CRM leads.
+                        </p>
+                    </div>
 
-<!-- HOW IT WORKS -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <h3 class="text-xl font-semibold mb-3">Smart Follow-Ups</h3>
+                        <p class="text-slate-400">
+                            AI drafts personalized responses instantly.
+                        </p>
+                    </div>
 
-<section id="how" class="py-32">
+                    <div class="glass-card p-8 rounded-2xl">
+                        <h3 class="text-xl font-semibold mb-3">Automatic Scheduling</h3>
+                        <p class="text-slate-400">
+                            Connects to Google Calendar and schedules showings.
+                        </p>
+                    </div>
 
-<div class="max-w-5xl mx-auto px-6 text-center">
+                    <div class="glass-card p-8 rounded-2xl">
+                        <h3 class="text-xl font-semibold mb-3">Daily Priorities</h3>
+                        <p class="text-slate-400">
+                            Shows which leads need attention today.
+                        </p>
+                    </div>
 
-<h2 class="text-4xl font-bold mb-20">
-How ARCA Works
-</h2>
+                </div>
 
-<div class="grid md:grid-cols-4 gap-10">
+            </div>
 
-<div>
-<div class="text-blue-500 text-xl font-bold mb-2">1</div>
-<p>Connect Gmail</p>
-</div>
+        </section>
 
-<div>
-<div class="text-blue-500 text-xl font-bold mb-2">2</div>
-<p>ARCA detects leads</p>
-</div>
 
-<div>
-<div class="text-blue-500 text-xl font-bold mb-2">3</div>
-<p>AI drafts responses</p>
-</div>
+        <!-- HOW IT WORKS -->
 
-<div>
-<div class="text-blue-500 text-xl font-bold mb-2">4</div>
-<p>Close more deals</p>
-</div>
+        <section id="how" class="py-28">
 
-</div>
+            <div class="max-w-5xl mx-auto px-6 text-center">
 
-</div>
+                <h2 class="text-4xl font-bold mb-20">
+                    How ARCA Works
+                </h2>
 
-</section>
+                <div class="grid md:grid-cols-4 gap-12">
 
+                    <div>
+                        <div class="text-blue-500 text-xl font-bold mb-2">1</div>
+                        <p>Connect Gmail</p>
+                    </div>
 
-<!-- PRICING -->
+                    <div>
+                        <div class="text-blue-500 text-xl font-bold mb-2">2</div>
+                        <p>ARCA detects leads</p>
+                    </div>
 
-<section id="pricing" class="py-32 bg-white/5">
+                    <div>
+                        <div class="text-blue-500 text-xl font-bold mb-2">3</div>
+                        <p>AI drafts responses</p>
+                    </div>
 
-<div class="max-w-3xl mx-auto text-center px-6">
+                    <div>
+                        <div class="text-blue-500 text-xl font-bold mb-2">4</div>
+                        <p>Close more deals</p>
+                    </div>
 
-<h2 class="text-4xl font-bold mb-10">
-Early Access
-</h2>
+                </div>
 
-<p class="text-xl text-slate-400 mb-10">
-Free during beta
-</p>
+            </div>
 
-<button class="bg-blue-600 px-10 py-5 rounded-xl font-semibold">
-Join the Waitlist
-</button>
+        </section>
 
-</div>
 
-</section>
+        <!-- PRICING -->
 
+        <section id="pricing" class="py-28 bg-white/5">
 
-<footer class="py-12 border-t border-white/10 text-center text-sm text-slate-500">
+            <div class="max-w-3xl mx-auto text-center px-6">
 
-© 2026 ARCA — AI CRM for Real Estate Agents
+                <h2 class="text-4xl font-bold mb-6">
+                    Early Access
+                </h2>
 
-</footer>
+                <p class="text-xl text-slate-400 mb-10">
+                    Free during beta
+                </p>
+
+                <button class="bg-blue-600 px-10 py-5 rounded-xl font-semibold">
+                    Join Waitlist
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- FINAL CTA -->
+
+        <section class="py-32 text-center">
+
+            <h2 class="text-5xl font-bold mb-10">
+                Never Lose a Real Estate Lead Again
+            </h2>
+
+            <a href="#waitlist" class="bg-white text-black px-10 py-5 rounded-xl font-semibold">
+                Join the Waitlist
+            </a>
+
+        </section>
+
+
+        <footer class="py-12 border-t border-white/10 text-center text-sm text-slate-500">
+
+            © 2026 ARCA — AI CRM for Real Estate Agents
+
+        </footer>
+
+    </div>
 
 </body>
+
 </html>
