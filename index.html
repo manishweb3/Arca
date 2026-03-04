@@ -14,6 +14,16 @@
         rel="stylesheet" />
 
     <script>
+        // High-priority theme initialization to prevent flickers
+        (function () {
+            const theme = localStorage.getItem('theme') || 'dark';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -23,8 +33,6 @@
                         display: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
-                        background: '#000000',
-                        surface: '#111111',
                         primary: {
                             400: '#60a5fa',
                             500: '#2563eb',
@@ -65,46 +73,50 @@
         }
     </script>
 
-    <style>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-[#fcfcfc] dark:bg-black text-slate-600 dark:text-slate-400 transition-colors duration-500;
+                font-family: 'Inter', sans-serif;
+                overflow-x: hidden;
+            }
+
+            h1, h2 {
+                @apply font-display text-black dark:text-white transition-colors duration-500;
+                letter-spacing: -0.015em;
+                word-spacing: 0.05em;
+            }
+
+            h3, h4 {
+                @apply font-display text-black dark:text-white transition-colors duration-500;
+                letter-spacing: 0em;
+                word-spacing: 0.06em;
+            }
+
+            p {
+                @apply transition-colors duration-500;
+                letter-spacing: 0.01em;
+                word-spacing: 0.02em;
+            }
+        }
+
         * {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        body {
-            background: #000000;
-            color: #94a3b8;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
         ::selection {
-            background: rgba(37, 99, 235, 0.3);
-        }
-
-        /* Typography — relaxed tracking so words never clump */
-        h1,
-        h2 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #ffffff;
-            letter-spacing: -0.015em;
-            word-spacing: 0.05em;
-        }
-
-        h3,
-        h4 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #ffffff;
-            letter-spacing: 0em;
-            word-spacing: 0.06em;
-        }
-
-        p {
-            letter-spacing: 0.01em;
-            word-spacing: 0.02em;
+            background: rgba(37, 99, 235, 0.2);
         }
 
         .text-gradient {
+            background: linear-gradient(180deg, #1e293b 20%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dark .text-gradient {
             background: linear-gradient(180deg, #ffffff 20%, #60a5fa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -181,36 +193,59 @@
     <!-- Ambient glow -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div
-            class="absolute top-[-30%] left-[-15%] w-[700px] h-[700px] bg-primary-500/[0.07] rounded-full blur-[160px]">
+            class="absolute top-[-30%] left-[-15%] w-[700px] h-[700px] bg-primary-500/[0.04] dark:bg-primary-500/[0.08] rounded-full blur-[160px] transition-colors duration-500">
         </div>
-        <div class="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-500/[0.05] rounded-full blur-[150px]">
+        <div
+            class="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-500/[0.03] dark:bg-indigo-500/[0.06] rounded-full blur-[150px] transition-colors duration-500">
         </div>
-        <div class="absolute bottom-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/[0.06] rounded-full blur-[180px]">
+        <div
+            class="absolute bottom-[-20%] left-[20%] w-[600px] h-[600px] bg-blue-900/[0.03] dark:bg-blue-900/[0.1] rounded-full blur-[180px] transition-colors duration-500">
         </div>
     </div>
 
     <div class="relative z-10">
 
         <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
-        <header class="fixed top-0 w-full z-50 backdrop-blur-2xl bg-black/60 border-b border-white/[0.04]">
+        <header
+            class="fixed top-0 w-full z-50 backdrop-blur-2xl bg-white/60 dark:bg-black/60 border-b border-black/[0.04] dark:border-white/[0.04] transition-colors duration-500">
             <nav class="max-w-6xl mx-auto px-6 h-16 flex justify-between items-center">
                 <a href="#" class="flex items-center gap-2.5 group">
                     <div
-                        class="w-8 h-8 rounded-xl bg-white text-black flex items-center justify-center text-sm font-extrabold font-display group-hover:scale-110 transition-transform">
+                        class="w-8 h-8 rounded-xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center text-sm font-extrabold font-display group-hover:scale-110 transition-transform duration-300">
                         A</div>
-                    <span class="text-lg font-bold text-white font-display tracking-tight">ARCA</span>
+                    <span class="text-lg font-bold text-black dark:text-white font-display tracking-tight">ARCA</span>
                 </a>
 
-                <div class="hidden md:flex gap-8 text-[13px] font-semibold text-slate-400">
-                    <a href="#features" class="hover:text-white transition-colors duration-200">Features</a>
-                    <a href="#how" class="hover:text-white transition-colors duration-200">Process</a>
-                    <a href="#pricing" class="hover:text-white transition-colors duration-200">Beta Access</a>
+                <div
+                    class="hidden md:flex items-center gap-8 text-[13px] font-semibold text-slate-500 dark:text-slate-400">
+                    <a href="#features"
+                        class="hover:text-black dark:hover:text-white transition-colors duration-200">Features</a>
+                    <a href="#how"
+                        class="hover:text-black dark:hover:text-white transition-colors duration-200">Process</a>
+                    <a href="#pricing"
+                        class="hover:text-black dark:hover:text-white transition-colors duration-200">Beta Access</a>
                 </div>
 
-                <a href="#waitlist"
-                    class="bg-white text-black px-5 py-2 rounded-full text-[13px] font-semibold hover:bg-slate-100 active:scale-95 transition-all duration-200">
-                    Get Early Access
-                </a>
+                <div class="flex items-center gap-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle"
+                        class="w-9 h-9 flex items-center justify-center rounded-xl bg-black/[0.04] dark:bg-white/[0.06] text-black dark:text-white hover:bg-black/[0.08] dark:hover:bg-white/[0.1] transition-all duration-300">
+                        <svg id="moon-icon" class="hidden w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <svg id="sun-icon" class="hidden w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 5a7 7 0 100 14 7 7 0 000-14z" />
+                        </svg>
+                    </button>
+
+                    <a href="#waitlist"
+                        class="bg-black dark:bg-white text-white dark:text-black px-5 py-2 rounded-full text-[13px] font-semibold hover:opacity-90 active:scale-95 transition-all duration-200">
+                        Get Early Access
+                    </a>
+                </div>
             </nav>
         </header>
 
@@ -222,7 +257,7 @@
                 <!-- Left: Copy -->
                 <div>
                     <div
-                        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-semibold text-slate-400 tracking-widest uppercase mb-8 reveal">
+                        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] text-[11px] font-semibold text-slate-500 dark:text-slate-400 tracking-widest uppercase mb-8 reveal transition-colors">
                         <span class="w-1.5 h-1.5 rounded-full bg-primary-500 shadow-[0_0_8px_#2563eb]"></span>
                         AI-Powered Real Estate CRM
                     </div>
@@ -233,20 +268,21 @@
                         <span class="text-gradient">Real Estate Agents</span>
                     </h1>
 
-                    <p class="text-lg text-slate-400 leading-relaxed mb-10 max-w-md font-medium reveal"
+                    <p class="text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-10 max-w-md font-medium reveal"
                         style="transition-delay:0.2s">
-                        ARCA automates your inbox. It <span class="text-white font-semibold">captures leads
-                            automatically</span>,
-                        drafts personalized follow-ups, and <span class="text-white font-semibold">schedules
-                            showings</span> — so you never lose a deal.
+                        ARCA automates your inbox. It <span class="text-black dark:text-white font-semibold">captures
+                            leads automatically</span>,
+                        drafts personalized follow-ups, and <span
+                            class="text-black dark:text-white font-semibold">schedules showings</span> — so you never
+                        lose a deal.
                     </p>
 
                     <form id="waitlist" class="flex flex-col sm:flex-row gap-3 max-w-md reveal"
                         style="transition-delay:0.3s">
                         <input type="email" placeholder="Enter your work email" required
-                            class="flex-1 px-5 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-transparent transition-all" />
+                            class="flex-1 px-5 py-3.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] text-black dark:text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-transparent transition-all font-medium" />
                         <button type="submit"
-                            class="shrink-0 px-6 py-3.5 rounded-xl bg-white text-black text-sm font-bold flex items-center gap-2 hover:bg-slate-100 active:scale-[0.97] transition-all duration-200">
+                            class="shrink-0 px-6 py-3.5 rounded-xl bg-black dark:bg-white text-white dark:text-black text-sm font-bold flex items-center gap-2 hover:opacity-90 active:scale-[0.97] transition-all duration-200 shadow-xl shadow-primary-500/10">
                             Join Waitlist
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
@@ -378,65 +414,76 @@
             <div class="max-w-6xl mx-auto px-6">
                 <div class="text-center mb-20 max-w-2xl mx-auto reveal">
                     <h2 class="text-4xl md:text-[3.5rem] font-extrabold leading-tight mb-6">
-                        Real Estate Leads<br /><span class="text-white/25">Get Lost in Email</span>
+                        Real Estate Leads<br /><span
+                            class="text-black/25 dark:text-white/25 transition-colors duration-500">Get Lost in
+                            Email</span>
                     </h2>
-                    <p class="text-slate-400 text-lg font-medium leading-relaxed">Agents drop the ball not because they
+                    <p class="text-slate-600 dark:text-slate-400 text-lg font-medium leading-relaxed">Agents drop the
+                        ball not because they
                         don't care — but because manually managing leads across platforms is impossible.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     <div
-                        class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal">
-                        <div class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-5">
-                            <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.06] rounded-2xl p-7 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-300 reveal">
+                        <div
+                            class="w-11 h-11 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-5 text-red-500">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Leads Buried</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Zillow and Realtor
-                            leads disappear in chaotic email threads.</p>
+                        <h3 class="text-base font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">Leads
+                            Buried</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed font-medium"
+                            style="word-spacing:0.03em">Zillow and Realtor leads disappear in chaotic email threads.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal"
+                    <div class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.06] rounded-2xl p-7 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-300 reveal"
                         style="transition-delay:0.08s">
                         <div
-                            class="w-11 h-11 rounded-xl bg-orange-500/10 flex items-center justify-center mx-auto mb-5">
-                            <svg class="w-5 h-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            class="w-11 h-11 rounded-xl bg-orange-500/10 flex items-center justify-center mx-auto mb-5 text-orange-500">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Missed Follow-ups
-                        </h3>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Busy agents often
-                            forget to reply within the critical first hour.</p>
+                        <h3 class="text-base font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">
+                            Missed Follow-ups</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed font-medium"
+                            style="word-spacing:0.03em">Busy agents often forget to reply within the critical first
+                            hour.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal"
+                    <div class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.06] rounded-2xl p-7 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-300 reveal"
                         style="transition-delay:0.16s">
-                        <div class="w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center mx-auto mb-5">
-                            <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div
+                            class="w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center mx-auto mb-5 text-amber-500">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
-                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Manual CRM Entry</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Typing contact
-                            details into clunky CRMs wastes hours every week.</p>
+                        <h3 class="text-base font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">
+                            Manual CRM Entry</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed font-medium"
+                            style="word-spacing:0.03em">Typing contact details into clunky CRMs wastes hours every week.
+                        </p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-7 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 reveal"
+                    <div class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.06] rounded-2xl p-7 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] transition-all duration-300 reveal"
                         style="transition-delay:0.24s">
-                        <div class="w-11 h-11 rounded-xl bg-slate-500/10 flex items-center justify-center mx-auto mb-5">
-                            <svg class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div
+                            class="w-11 h-11 rounded-xl bg-slate-500/10 flex items-center justify-center mx-auto mb-5 text-slate-500">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                             </svg>
                         </div>
-                        <h3 class="text-base font-bold text-white mb-2" style="word-spacing:0.1em">Lost Deals</h3>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Slow responses and
-                            disorganization mean lost opportunities.</p>
+                        <h3 class="text-base font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">Lost
+                            Deals</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed font-medium"
+                            style="word-spacing:0.03em">Slow responses and disorganization mean lost opportunities.</p>
                     </div>
                 </div>
             </div>
@@ -454,14 +501,15 @@
                     <h2 class="text-4xl md:text-[3.5rem] font-extrabold leading-tight mb-6">
                         ARCA Runs Your CRM<br /><span class="text-primary-400">Automatically</span>
                     </h2>
-                    <p class="text-slate-400 text-lg font-medium leading-relaxed">Stop doing data entry. ARCA works
+                    <p class="text-slate-600 dark:text-slate-400 text-lg font-medium leading-relaxed">Stop doing data
+                        entry. ARCA works
                         quietly in the background, analyzing your communications and building your pipeline.</p>
                 </div>
 
                 <!-- 2x2 uniform grid -->
                 <div class="grid md:grid-cols-2 gap-5">
                     <div
-                        class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal">
+                        class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal">
                         <div
                             class="w-12 h-12 rounded-xl bg-primary-500/10 border border-primary-500/20 flex items-center justify-center text-primary-400 mb-6 group-hover:scale-110 transition-transform">
                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -471,55 +519,63 @@
                                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">AI Lead Detection
+                        <h3 class="text-2xl font-bold text-black dark:text-white mb-3" style="word-spacing:0.08em">AI
+                            Lead Detection
                         </h3>
-                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">ARCA scans
+                        <p class="text-slate-600 dark:text-slate-400 text-[15px] leading-relaxed"
+                            style="word-spacing:0.03em">ARCA scans
                             incoming emails, identifies lead intent, and automatically extracts names, phone numbers,
                             and property interests to create CRM profiles instantly.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                    <div class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal"
                         style="transition-delay:0.08s">
                         <div
-                            class="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
+                            class="w-12 h-12 rounded-xl bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">Smart Follow-Ups</h3>
-                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">ARCA drafts
+                        <h3 class="text-2xl font-bold text-black dark:text-white mb-3" style="word-spacing:0.08em">Smart
+                            Follow-Ups</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-[15px] leading-relaxed"
+                            style="word-spacing:0.03em">ARCA drafts
                             hyper-personalized email and text responses based on the property they inquired about. Just
                             review and hit send.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                    <div class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal"
                         style="transition-delay:0.16s">
                         <div
-                            class="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
+                            class="w-12 h-12 rounded-xl bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">Automatic Scheduling
+                        <h3 class="text-2xl font-bold text-black dark:text-white mb-3" style="word-spacing:0.08em">
+                            Automatic Scheduling
                         </h3>
-                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">Seamlessly
+                        <p class="text-slate-600 dark:text-slate-400 text-[15px] leading-relaxed"
+                            style="word-spacing:0.03em">Seamlessly
                             connects to your Google Calendar. When a client requests to see a property, ARCA checks
                             availability and sends a one-click booking link.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                    <div class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-10 hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal"
                         style="transition-delay:0.24s">
                         <div
-                            class="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
+                            class="w-12 h-12 rounded-xl bg-black/[0.04] dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.08] flex items-center justify-center text-primary-400 mb-6 group-hover:bg-primary-500/10 group-hover:border-primary-500/20 transition-all">
                             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3" style="word-spacing:0.08em">Daily Priorities</h3>
-                        <p class="text-slate-400 text-[15px] leading-relaxed" style="word-spacing:0.03em">Start your day
+                        <h3 class="text-2xl font-bold text-black dark:text-white mb-3" style="word-spacing:0.08em">Daily
+                            Priorities</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-[15px] leading-relaxed"
+                            style="word-spacing:0.03em">Start your day
                             knowing exactly who to contact. ARCA highlights hot leads, reminds you of pending
                             follow-ups, and organizes tasks by priority.</p>
                     </div>
@@ -539,48 +595,57 @@
                     <h2 class="text-4xl md:text-[3.5rem] font-extrabold leading-tight mb-6">
                         How It <span class="text-primary-400">Works</span>
                     </h2>
-                    <p class="text-slate-400 text-lg font-medium leading-relaxed">Four simple steps to never miss a lead
+                    <p class="text-slate-600 dark:text-slate-400 text-lg font-medium leading-relaxed">Four simple steps
+                        to never miss a lead
                         again.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     <div
-                        class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal">
+                        class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal">
                         <div
-                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            class="w-14 h-14 rounded-full bg-[#fcfcfc] dark:bg-[#0d0d0d] border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-black dark:text-white group-hover:border-primary-500/40 transition-all">
                             1</div>
-                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">Connect Gmail</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Securely link your
+                        <h4 class="text-lg font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">Connect
+                            Gmail</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed"
+                            style="word-spacing:0.03em">Securely link your
                             inbox in one click.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                    <div class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal"
                         style="transition-delay:0.08s">
                         <div
-                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            class="w-14 h-14 rounded-full bg-[#fcfcfc] dark:bg-[#0d0d0d] border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-black dark:text-white group-hover:border-primary-500/40 transition-all">
                             2</div>
-                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">ARCA Monitors</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">AI finds leads and
+                        <h4 class="text-lg font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">ARCA
+                            Monitors</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed"
+                            style="word-spacing:0.03em">AI finds leads and
                             filters out the noise.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                    <div class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal"
                         style="transition-delay:0.16s">
                         <div
-                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            class="w-14 h-14 rounded-full bg-[#fcfcfc] dark:bg-[#0d0d0d] border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-black dark:text-white group-hover:border-primary-500/40 transition-all">
                             3</div>
-                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">AI Drafts Replies</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Context-aware
+                        <h4 class="text-lg font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">AI
+                            Drafts Replies</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed"
+                            style="word-spacing:0.03em">Context-aware
                             responses await your review.</p>
                     </div>
 
-                    <div class="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300 group reveal"
+                    <div class="bg-white/[0.02] dark:bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 text-center hover:bg-black/[0.04] dark:hover:bg-white/[0.04] hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-300 group reveal"
                         style="transition-delay:0.24s">
                         <div
-                            class="w-14 h-14 rounded-full bg-[#0d0d0d] border border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-white group-hover:border-primary-500/40 transition-all">
+                            class="w-14 h-14 rounded-full bg-[#fcfcfc] dark:bg-[#0d0d0d] border border-black/[0.06] dark:border-white/[0.06] flex items-center justify-center mx-auto mb-6 text-lg font-bold text-black dark:text-white group-hover:border-primary-500/40 transition-all">
                             4</div>
-                        <h4 class="text-lg font-bold text-white mb-2" style="word-spacing:0.1em">Close More Deals</h4>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Turn speed-to-lead
+                        <h4 class="text-lg font-bold text-black dark:text-white mb-2" style="word-spacing:0.1em">Close
+                            More Deals</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed"
+                            style="word-spacing:0.03em">Turn speed-to-lead
                             into real commissions.</p>
                     </div>
                 </div>
@@ -596,25 +661,25 @@
         <section id="pricing" class="py-28 lg:py-40">
             <div class="max-w-6xl mx-auto px-6">
                 <div
-                    class="bg-white/[0.02] border border-white/[0.06] rounded-3xl p-14 md:p-24 text-center relative overflow-hidden group hover:border-white/[0.1] transition-all duration-500 reveal">
+                    class="bg-black/[0.02] dark:bg-white/[0.02] border border-black/[0.05] dark:border-white/[0.06] rounded-3xl p-14 md:p-24 text-center relative overflow-hidden group hover:border-black/[0.1] dark:hover:border-white/[0.1] transition-all duration-500 reveal">
                     <!-- Glow -->
                     <div
                         class="absolute inset-0 bg-primary-500/[0.03] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
                     </div>
 
-                    <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-8 relative z-10">
+                    <h2 class="text-4xl md:text-6xl font-extrabold leading-tight mb-8 relative z-10 transition-colors">
                         Never Lose a<br />Real Estate Lead Again
                     </h2>
                     <p
-                        class="text-lg md:text-xl text-slate-400 mb-12 max-w-lg mx-auto relative z-10 font-medium leading-relaxed">
+                        class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12 max-w-lg mx-auto relative z-10 font-medium leading-relaxed transition-colors">
                         Join the exclusive beta and get free access to ARCA before we launch to the public.
                     </p>
 
                     <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto relative z-10">
                         <input type="email" placeholder="Enter your email" required
-                            class="flex-1 px-5 py-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all" />
+                            class="flex-1 px-5 py-3.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08] text-black dark:text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all font-medium" />
                         <button type="submit"
-                            class="shrink-0 px-7 py-3.5 rounded-xl bg-white text-black text-sm font-bold hover:bg-slate-100 active:scale-[0.97] transition-all duration-200">
+                            class="shrink-0 px-7 py-3.5 rounded-xl bg-black dark:bg-white text-white dark:text-black text-sm font-bold hover:opacity-90 active:scale-[0.97] transition-all duration-200 shadow-xl shadow-primary-500/10">
                             Get Early Access
                         </button>
                     </form>
@@ -627,44 +692,45 @@
 
 
         <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
-        <footer class="border-t border-white/[0.04] py-16">
+        <footer class="border-t border-black/[0.04] dark:border-white/[0.04] py-16 transition-colors duration-500">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
                     <div class="max-w-xs">
                         <div class="flex items-center gap-2.5 mb-5">
                             <div
-                                class="w-7 h-7 rounded-lg bg-white text-black flex items-center justify-center text-xs font-extrabold font-display">
+                                class="w-7 h-7 rounded-lg bg-black dark:bg-white text-white dark:text-black flex items-center justify-center text-xs font-extrabold font-display">
                                 A</div>
-                            <span class="text-base font-bold text-white font-display">ARCA</span>
+                            <span class="text-base font-bold text-black dark:text-white font-display">ARCA</span>
                         </div>
-                        <p class="text-sm text-slate-500 leading-relaxed" style="word-spacing:0.03em">Defining the next
+                        <p class="text-sm text-slate-600 dark:text-slate-500 leading-relaxed"
+                            style="word-spacing:0.03em">Defining the next
                             generation of real estate intelligence. Built for agents who demand more.</p>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-12 text-[12px] text-slate-500">
+                    <div class="grid grid-cols-3 gap-12 text-[12px] text-slate-600 dark:text-slate-500">
                         <div class="flex flex-col gap-3">
                             <span
-                                class="text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Product</span>
-                            <a href="#" class="hover:text-white transition-colors">Features</a>
-                            <a href="#" class="hover:text-white transition-colors">Beta</a>
+                                class="text-black dark:text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Product</span>
+                            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Features</a>
+                            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Beta</a>
                         </div>
                         <div class="flex flex-col gap-3">
                             <span
-                                class="text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Legal</span>
-                            <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                            <a href="#" class="hover:text-white transition-colors">Terms</a>
+                                class="text-black dark:text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Legal</span>
+                            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Privacy</a>
+                            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Terms</a>
                         </div>
                         <div class="flex flex-col gap-3">
                             <span
-                                class="text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Connect</span>
-                            <a href="#" class="hover:text-white transition-colors">Twitter</a>
-                            <a href="#" class="hover:text-white transition-colors">Contact</a>
+                                class="text-black dark:text-white font-semibold text-[11px] uppercase tracking-widest mb-1">Connect</span>
+                            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Twitter</a>
+                            <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Contact</a>
                         </div>
                     </div>
                 </div>
 
                 <div
-                    class="pt-8 border-t border-white/[0.04] flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] text-slate-600 uppercase tracking-widest">
+                    class="pt-8 border-t border-black/[0.04] dark:border-white/[0.04] flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] text-slate-600 uppercase tracking-widest">
                     <span>&copy; 2026 ARCA AI. All rights reserved.</span>
                     <div class="flex items-center gap-6">
                         <span>Designed in California</span>
@@ -677,8 +743,39 @@
 
     </div>
 
-    <!-- Scroll Reveal Script -->
+    <!-- Theme Toggle & Scroll Reveal Script -->
     <script>
+        // Set icon states immediately based on current theme
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const htmlElement = document.documentElement;
+
+        function updateIcons() {
+            if (htmlElement.classList.contains('dark')) {
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        }
+
+        // Initialize icons on load
+        updateIcons();
+
+        // Theme Toggle Listener
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateIcons();
+        });
+
+        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -686,7 +783,7 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.15 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
