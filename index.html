@@ -3,29 +3,29 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>ARCA — AI CRM for Real Estate Agents</title>
-    <meta name="description"
-        content="ARCA reads every email, ranks your hottest leads, and drafts follow-ups — all before your first coffee." />
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap"
         rel="stylesheet" />
     <style>
         :root {
-            --cream: #F5F2EE;
-            --cream-mid: #EDE9E3;
-            --cream-dark: #DDD8CF;
-            --white: #FFFFFF;
-            --text: #1A1714;
-            --text-mid: #5C5651;
-            --text-light: #9E9890;
-            --teal: #1A6B5A;
-            --teal-light: #2D8A75;
-            --teal-pale: #E8F4F1;
-            --accent: #C2622A;
-            --accent-pale: #FDF0EB;
-            --accent-lt: #E8896A;
-            --gold: #B07D3A;
+            --c: #F6F3EF;
+            --cm: #EDEAE4;
+            --cd: #D9D3C9;
+            --w: #FFF;
+            --t: #191614;
+            --tm: #5A5450;
+            --tl: #A09890;
+            --teal: #176655;
+            --teal2: #22876A;
+            --tealp: #E5F2EE;
+            --acc: #C05A26;
+            --accp: #FCF0EA;
+            --gold: #A87830;
+            --r: 20px;
+            --sh: 0 2px 12px rgba(25, 22, 20, .07), 0 1px 3px rgba(25, 22, 20, .04);
+            --sh2: 0 8px 32px rgba(25, 22, 20, .1), 0 2px 8px rgba(25, 22, 20, .06);
         }
 
         *,
@@ -33,19 +33,19 @@
         *::after {
             box-sizing: border-box;
             margin: 0;
-            padding: 0;
+            padding: 0
         }
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth
         }
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background: var(--cream);
-            color: var(--text);
+            background: var(--c);
+            color: var(--t);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            -webkit-font-smoothing: antialiased
         }
 
         h1,
@@ -53,347 +53,519 @@
         h3,
         h4 {
             font-family: 'Fraunces', serif;
-            letter-spacing: -0.02em;
+            letter-spacing: -.02em
         }
 
         a {
-            text-decoration: none;
+            text-decoration: none
         }
 
-        /* NAV */
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        /* ── NAV ── */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 200;
-            background: rgba(245, 242, 238, 0.9);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--cream-dark);
-            height: 64px;
-            padding: 0 6%;
+            z-index: 300;
+            height: 60px;
+            padding: 0 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background: rgba(246, 243, 239, .92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--cd);
+            transition: box-shadow .3s;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(25, 22, 20, .08)
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 9px;
+            gap: 8px
         }
 
-        .logo-mark {
-            width: 32px;
-            height: 32px;
-            border-radius: 9px;
+        .lm {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             background: var(--teal);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform .2s;
         }
 
-        .logo-mark svg {
-            width: 18px;
-            height: 18px;
+        .logo:hover .lm {
+            transform: rotate(-6deg) scale(1.08)
         }
 
-        .logo-name {
+        .lm svg {
+            width: 16px;
+            height: 16px
+        }
+
+        .ln {
             font-family: 'Fraunces', serif;
-            font-size: 17px;
-            font-weight: 600;
-            color: var(--text);
-            letter-spacing: -0.03em;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--t);
+            letter-spacing: -.03em
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
-            list-style: none;
+            gap: 28px;
+            list-style: none
         }
 
         .nav-links a {
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 500;
-            color: var(--text-mid);
-            transition: color .2s;
+            color: var(--tm);
+            transition: color .15s;
+            position: relative
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--t);
+            transform: scaleX(0);
+            transition: transform .2s
         }
 
         .nav-links a:hover {
-            color: var(--text);
+            color: var(--t)
         }
 
-        .nav-right {
+        .nav-links a:hover::after {
+            transform: scaleX(1)
+        }
+
+        .nav-r {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px
         }
 
-        .nav-signin {
-            font-size: 13.5px;
+        .nsign {
+            font-size: 13px;
             font-weight: 500;
-            color: var(--text-mid);
+            color: var(--tm);
+            transition: color .15s
         }
 
-        .nav-cta {
+        .nsign:hover {
+            color: var(--t)
+        }
+
+        .ncta {
             background: var(--teal);
             color: #fff;
-            padding: 9px 20px;
+            padding: 8px 18px;
             border-radius: 100px;
             font-size: 13px;
             font-weight: 600;
-            transition: background .2s, transform .15s;
+            transition: background .2s, transform .15s, box-shadow .2s;
         }
 
-        .nav-cta:hover {
-            background: var(--teal-light);
+        .ncta:hover {
+            background: var(--teal2);
             transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(23, 102, 85, .25)
         }
 
-        /* HERO */
+        /* ── HERO ── */
         .hero {
             min-height: 100vh;
-            padding: 128px 6% 80px;
+            padding: 120px 5% 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
 
-        .hero-badge {
+        .badge {
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            background: var(--teal-pale);
-            border: 1px solid rgba(26, 107, 90, 0.2);
+            background: var(--tealp);
+            border: 1px solid rgba(23, 102, 85, .18);
             border-radius: 100px;
             padding: 5px 14px;
-            font-size: 11.5px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             color: var(--teal);
-            letter-spacing: 0.05em;
+            letter-spacing: .06em;
             text-transform: uppercase;
-            margin-bottom: 36px;
+            margin-bottom: 32px;
+            animation: fadeDown .6s .1s both;
         }
 
-        .badge-dot {
+        .bdot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
             background: var(--teal);
-            animation: blink 2s ease-in-out infinite;
+            animation: pulse 2s infinite
         }
 
-        @keyframes blink {
+        @keyframes pulse {
 
             0%,
             100% {
-                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(23, 102, 85, .4)
             }
 
             50% {
-                opacity: .4;
+                box-shadow: 0 0 0 5px rgba(23, 102, 85, 0)
             }
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 6vw, 5.8rem);
+            font-size: clamp(3rem, 5.5vw, 5.6rem);
             font-weight: 600;
-            line-height: 1.06;
-            max-width: 820px;
-            margin-bottom: 24px;
+            line-height: 1.07;
+            max-width: 800px;
+            margin-bottom: 22px;
+            animation: fadeDown .7s .2s both;
         }
 
         .hero h1 em {
             font-style: italic;
-            color: var(--teal);
+            color: var(--teal)
         }
 
         .hero-sub {
-            font-size: 18px;
-            color: var(--text-mid);
-            line-height: 1.7;
-            max-width: 520px;
-            margin-bottom: 44px;
-            font-weight: 400;
+            font-size: 17px;
+            color: var(--tm);
+            line-height: 1.72;
+            max-width: 480px;
+            margin-bottom: 40px;
+            animation: fadeDown .7s .3s both;
         }
 
         .hero-btns {
             display: flex;
-            gap: 12px;
-            justify-content: center;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 64px;
+            justify-content: center;
+            margin-bottom: 60px;
+            animation: fadeDown .7s .4s both;
         }
 
-        .btn-primary {
+        .bp {
             background: var(--teal);
             color: #fff;
-            padding: 14px 28px;
+            padding: 13px 26px;
             border-radius: 100px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 600;
-            transition: background .2s, transform .15s, box-shadow .2s;
             border: none;
             cursor: pointer;
             font-family: 'DM Sans', sans-serif;
+            transition: background .2s, transform .15s, box-shadow .2s;
         }
 
-        .btn-primary:hover {
-            background: var(--teal-light);
+        .bp:hover {
+            background: var(--teal2);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(26, 107, 90, .22);
+            box-shadow: 0 8px 24px rgba(23, 102, 85, .24)
         }
 
-        .btn-ghost {
+        .bg {
             background: transparent;
-            color: var(--text-mid);
-            padding: 14px 24px;
+            color: var(--tm);
+            padding: 13px 22px;
             border-radius: 100px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 500;
-            border: 1.5px solid var(--cream-dark);
-            transition: border-color .2s, color .2s;
+            border: 1.5px solid var(--cd);
             cursor: pointer;
             font-family: 'DM Sans', sans-serif;
+            transition: border-color .2s, color .2s, transform .15s;
         }
 
-        .btn-ghost:hover {
-            border-color: var(--text-mid);
-            color: var(--text);
+        .bg:hover {
+            border-color: var(--tm);
+            color: var(--t);
+            transform: translateY(-1px)
         }
 
-        /* Hero visual */
-        .hero-visual {
+        /* ── LIVE DASHBOARD ── */
+        .hero-dash {
             width: 100%;
             max-width: 860px;
-            position: relative;
+            animation: fadeUp .8s .5s both;
         }
 
-        .hero-property {
-            width: 100%;
-            border-radius: 20px;
+        .dash-shell {
+            background: var(--w);
+            border-radius: 18px;
+            border: 1px solid var(--cd);
+            box-shadow: var(--sh2), 0 32px 80px rgba(25, 22, 20, .08);
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(26, 23, 20, .12), 0 4px 16px rgba(26, 23, 20, .07);
-            aspect-ratio: 16/7;
-            background: linear-gradient(135deg, #B8D4CC 0%, #7AACA0 35%, #4A8C85 65%, #2E6B65 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .hero-property-text {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.85);
-        }
-
-        .hero-property-text h3 {
-            font-family: 'Fraunces', serif;
-            font-size: 2.2rem;
-            font-weight: 400;
-            font-style: italic;
-            line-height: 1.2;
-            margin-bottom: 8px;
-        }
-
-        .hero-property-text p {
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.75;
-        }
-
-        .hero-notif {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 14px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
-            animation: slideUp 0.5s 0.8s cubic-bezier(.16, 1, .3, 1) both;
-        }
-
-        .hero-notif2 {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(0, 0, 0, 0.07);
-            border-radius: 14px;
-            padding: 10px 14px;
+        .dash-bar {
+            background: var(--cm);
+            border-bottom: 1px solid var(--cd);
+            padding: 11px 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, .1);
-            animation: slideUp 0.5s 1.2s cubic-bezier(.16, 1, .3, 1) both;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%
         }
 
-        .notif-icon {
+        .dr {
+            background: #FF5F57
+        }
+
+        .dy {
+            background: #FEBC2E
+        }
+
+        .dg {
+            background: #28C840
+        }
+
+        .dash-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: var(--tl);
+            margin-left: 6px
+        }
+
+        .dash-live {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #176655;
+            background: var(--tealp);
+            padding: 3px 9px;
+            border-radius: 100px;
+        }
+
+        .live-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #176655;
+            animation: pulse 1.4s infinite
+        }
+
+        .dash-body {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        /* Activity cards */
+        .acard {
+            background: var(--c);
+            border-radius: 12px;
+            border: 1px solid var(--cd);
+            padding: 14px 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: transform .2s, box-shadow .2s;
+            cursor: default;
+        }
+
+        .acard:hover {
+            transform: translateX(3px);
+            box-shadow: var(--sh)
+        }
+
+        .acard-icon {
             width: 36px;
             height: 36px;
             border-radius: 10px;
-            background: var(--teal-pale);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 16px;
             flex-shrink: 0;
-        }
-
-        .notif-title {
-            font-size: 12.5px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .notif-sub {
-            font-size: 11.5px;
-            color: var(--text-mid);
             margin-top: 1px;
         }
 
-        .priority-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #E85C0D;
-            flex-shrink: 0;
+        .acard-body {
+            flex: 1;
+            min-width: 0
         }
 
-        .notif2-text {
-            font-size: 12px;
+        .acard-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px
+        }
+
+        .acard-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--t)
+        }
+
+        .acard-time {
+            font-size: 11px;
+            color: var(--tl);
+            font-weight: 500
+        }
+
+        .acard-text {
+            font-size: 12.5px;
+            color: var(--tm);
+            line-height: 1.5;
+            margin-bottom: 9px
+        }
+
+        .acard-actions {
+            display: flex;
+            gap: 7px;
+            align-items: center
+        }
+
+        .abt {
+            font-size: 11.5px;
             font-weight: 600;
-            color: var(--text);
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            transition: opacity .15s, transform .1s
         }
 
-        /* STATS */
-        .stats-bar {
-            background: var(--white);
-            border-top: 1px solid var(--cream-dark);
-            border-bottom: 1px solid var(--cream-dark);
-            padding: 36px 6%;
+        .abt:hover {
+            opacity: .85;
+            transform: scale(.97)
+        }
+
+        .abt-p {
+            background: var(--teal);
+            color: #fff
+        }
+
+        .abt-s {
+            background: var(--cd);
+            color: var(--t)
+        }
+
+        .atag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 100px
+        }
+
+        .tag-new {
+            background: #EEF4FF;
+            color: #2B5EC7
+        }
+
+        .tag-ok {
+            background: #E8F5ED;
+            color: #1F7A42
+        }
+
+        .tag-hot {
+            background: #FFF1E8;
+            color: #C04800
+        }
+
+        /* Typing indicator */
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 0 2px
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--tl);
+            animation: bounce 1.2s infinite
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: .2s
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: .4s
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: translateY(0)
+            }
+
+            40% {
+                transform: translateY(-6px)
+            }
+        }
+
+        /* New card animation */
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scale(.97)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1)
+            }
+        }
+
+        .new-card {
+            animation: cardIn .4s cubic-bezier(.16, 1, .3, 1) both
+        }
+
+        /* ── STATS ── */
+        .stats {
+            background: var(--w);
+            border-top: 1px solid var(--cd);
+            border-bottom: 1px solid var(--cd);
+            padding: 32px 5%;
         }
 
         .stats-inner {
-            max-width: 860px;
+            max-width: 800px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1px 1fr 1px 1fr;
@@ -402,791 +574,860 @@
 
         .stat {
             text-align: center;
+            padding: 0 20px
         }
 
-        .stat-num {
+        .sn {
             font-family: 'Fraunces', serif;
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             font-weight: 600;
             color: var(--teal);
             line-height: 1;
-            margin-bottom: 6px;
-            letter-spacing: -0.03em;
+            margin-bottom: 5px;
+            letter-spacing: -.03em;
         }
 
-        .stat-label {
-            font-size: 11px;
+        .sl {
+            font-size: 10.5px;
             font-weight: 700;
             letter-spacing: .1em;
             text-transform: uppercase;
-            color: var(--text-light);
+            color: var(--tl)
         }
 
-        .stat-divider {
-            height: 48px;
-            background: var(--cream-dark);
+        .sdiv {
+            height: 44px;
+            background: var(--cd)
         }
 
-        /* SECTIONS */
-        .section {
-            padding: 100px 6%;
+        /* ── FEATURES ── */
+        .sec {
+            padding: 90px 5%
         }
 
-        .section-inner {
-            max-width: 1160px;
-            margin: 0 auto;
+        .si {
+            max-width: 1120px;
+            margin: 0 auto
         }
 
-        .section-label {
-            font-size: 11px;
+        .slbl {
+            font-size: 10.5px;
             font-weight: 700;
             letter-spacing: .1em;
             text-transform: uppercase;
-            color: var(--text-light);
-            margin-bottom: 14px;
+            color: var(--tl);
+            margin-bottom: 12px
         }
 
-        .section-center {
-            text-align: center;
+        .sh {
+            font-size: clamp(1.9rem, 3.2vw, 3rem);
+            line-height: 1.12;
+            margin-bottom: 14px
         }
 
-        .section-center .section-label {
-            display: block;
-        }
-
-        .section-h {
-            font-size: clamp(2rem, 3.5vw, 3.2rem);
-            line-height: 1.1;
-            margin-bottom: 16px;
-        }
-
-        .section-sub {
-            font-size: 17px;
-            color: var(--text-mid);
+        .ss {
+            font-size: 16.5px;
+            color: var(--tm);
             line-height: 1.7;
-            max-width: 520px;
+            max-width: 500px
         }
 
-        .section-center .section-sub {
-            margin: 0 auto;
+        .sc {
+            text-align: center
         }
 
-        /* FEATURES */
-        .features-grid {
+        .sc .slbl {
+            display: block
+        }
+
+        .sc .ss {
+            margin: 0 auto
+        }
+
+        .fg {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-top: 60px;
+            gap: 16px;
+            margin-top: 52px
         }
 
-        .feat-card {
-            background: var(--white);
-            border: 1px solid var(--cream-dark);
-            border-radius: 20px;
-            padding: 32px;
-            transition: box-shadow .25s, transform .25s;
+        .fc {
+            background: var(--w);
+            border: 1px solid var(--cd);
+            border-radius: var(--r);
+            padding: 28px;
+            transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s, border-color .25s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .feat-card:hover {
-            box-shadow: 0 10px 36px rgba(26, 23, 20, .08);
-            transform: translateY(-3px);
+        .fc::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--r);
+            background: linear-gradient(135deg, var(--tealp) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity .3s;
         }
 
-        .feat-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: var(--teal-pale);
+        .fc:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--sh2);
+            border-color: rgba(23, 102, 85, .2)
+        }
+
+        .fc:hover::before {
+            opacity: 1
+        }
+
+        .fi {
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            background: var(--tealp);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--teal);
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            transition: transform .2s;
+            position: relative;
         }
 
-        .feat-icon svg {
-            width: 20px;
-            height: 20px;
+        .fc:hover .fi {
+            transform: scale(1.1) rotate(-4deg)
         }
 
-        .feat-card h4 {
-            font-size: 16px;
+        .fi svg {
+            width: 19px;
+            height: 19px
+        }
+
+        .fc h4 {
+            font-size: 15.5px;
             font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text);
+            margin-bottom: 8px;
+            color: var(--t);
+            position: relative
         }
 
-        .feat-card p {
-            font-size: 14px;
-            color: var(--text-mid);
+        .fc p {
+            font-size: 13.5px;
+            color: var(--tm);
             line-height: 1.65;
+            position: relative
         }
 
-        /* HOW IT WORKS */
-        .how-section {
-            padding: 100px 6%;
-            background: var(--cream-mid);
-            border-top: 1px solid var(--cream-dark);
-            border-bottom: 1px solid var(--cream-dark);
+        /* ── HOW IT WORKS ── */
+        .how {
+            padding: 90px 5%;
+            background: var(--cm);
+            border-top: 1px solid var(--cd);
+            border-bottom: 1px solid var(--cd)
         }
 
-        .how-layout {
+        .how-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 72px;
             align-items: center;
-            max-width: 1060px;
-            margin: 56px auto 0;
+            max-width: 1020px;
+            margin: 52px auto 0
         }
 
-        .how-step {
+        .steps {
             display: flex;
-            gap: 20px;
-            padding: 24px 0;
-            border-bottom: 1px solid var(--cream-dark);
-            cursor: pointer;
+            flex-direction: column
         }
 
-        .how-step:last-child {
-            border-bottom: none;
+        .step {
+            display: flex;
+            gap: 18px;
+            padding: 22px 0;
+            border-bottom: 1px solid var(--cd);
+            transition: background .15s;
         }
 
-        .step-num-badge {
-            width: 34px;
-            height: 34px;
+        .step:last-child {
+            border-bottom: none
+        }
+
+        .snb {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             flex-shrink: 0;
-            background: var(--teal-pale);
-            border: 1.5px solid rgba(26, 107, 90, .2);
+            background: var(--tealp);
+            border: 1.5px solid rgba(23, 102, 85, .2);
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Fraunces', serif;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 12px;
+            font-weight: 700;
             color: var(--teal);
             margin-top: 2px;
-            transition: background .2s, color .2s;
+            transition: background .2s, color .2s, transform .2s;
         }
 
-        .how-step:hover .step-num-badge {
+        .step:hover .snb {
             background: var(--teal);
             color: #fff;
+            transform: scale(1.1)
         }
 
-        .step-content h4 {
-            font-size: 16px;
+        .sc2 h4 {
+            font-size: 15.5px;
             font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--text);
+            margin-bottom: 5px;
+            color: var(--t)
         }
 
-        .step-content p {
-            font-size: 14px;
-            color: var(--text-mid);
-            line-height: 1.65;
+        .sc2 p {
+            font-size: 13.5px;
+            color: var(--tm);
+            line-height: 1.65
         }
 
-        .how-image {
-            border-radius: 20px;
+        .how-vis {
+            border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 16px 56px rgba(26, 23, 20, .12);
-            aspect-ratio: 4/3;
-        }
-
-        .how-image-inner {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(160deg, #C8D8D0 0%, #8FB5A8 50%, #5A907F 100%);
+            box-shadow: var(--sh2);
+            background: linear-gradient(155deg, #C5DAD4 0%, #85B5AA 50%, #4E8C80 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 360px;
+            min-height: 380px;
         }
 
-        /* TESTIMONIALS */
-        .testimonials-section {
-            padding: 100px 6%;
-        }
-
-        .testi-kicker {
+        .how-vis-inner {
             text-align: center;
+            padding: 40px
+        }
+
+        .how-vis-inner .big {
+            font-size: 52px;
+            margin-bottom: 14px
+        }
+
+        .how-vis-inner h3 {
             font-family: 'Fraunces', serif;
-            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-size: 1.5rem;
+            color: #1A3C34;
+            font-weight: 500;
+            line-height: 1.3
+        }
+
+        .how-vis-inner p {
+            font-size: 13px;
+            color: rgba(26, 60, 52, .6);
+            margin-top: 10px;
+            font-weight: 500
+        }
+
+        /* ── TESTIMONIALS ── */
+        .tq {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.9rem, 3vw, 2.9rem);
             font-weight: 400;
             font-style: italic;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .testi-kicker span {
-            color: var(--teal);
-        }
-
-        .testi-sub {
             text-align: center;
-            font-size: 14px;
-            color: var(--text-light);
-            font-weight: 500;
-            letter-spacing: .04em;
-            margin-bottom: 56px;
+            margin-bottom: 7px;
         }
 
-        .testimonials-grid {
+        .tq span {
+            color: var(--teal)
+        }
+
+        .tsub {
+            text-align: center;
+            font-size: 13.5px;
+            color: var(--tl);
+            font-weight: 600;
+            letter-spacing: .04em;
+            margin-bottom: 52px
+        }
+
+        .tg {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            max-width: 1060px;
-            margin: 0 auto;
+            gap: 16px;
+            max-width: 1020px;
+            margin: 0 auto
         }
 
-        .testi-card {
-            background: var(--white);
-            border: 1px solid var(--cream-dark);
-            border-radius: 20px;
-            padding: 32px;
-            transition: box-shadow .25s;
+        .tc {
+            background: var(--w);
+            border: 1px solid var(--cd);
+            border-radius: var(--r);
+            padding: 28px;
+            transition: transform .2s, box-shadow .2s;
         }
 
-        .testi-card:hover {
-            box-shadow: 0 8px 32px rgba(26, 23, 20, .08);
+        .tc:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--sh2)
         }
 
-        .testi-stars {
+        .tstars {
             color: var(--gold);
-            font-size: 13px;
-            margin-bottom: 16px;
+            font-size: 12px;
             letter-spacing: 2px;
+            margin-bottom: 14px
         }
 
-        .testi-quote {
-            font-size: 15px;
-            color: var(--text-mid);
+        .ttext {
+            font-size: 14.5px;
+            color: var(--tm);
             line-height: 1.7;
             font-style: italic;
-            margin-bottom: 24px;
+            margin-bottom: 22px
         }
 
-        .testi-author {
+        .tauth {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px
         }
 
-        .testi-avatar {
-            width: 40px;
-            height: 40px;
+        .tav {
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: var(--teal-pale);
+            background: var(--tealp);
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Fraunces', serif;
-            font-size: 15px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             color: var(--teal);
         }
 
-        .testi-name {
-            font-size: 13px;
+        .tn {
+            font-size: 12.5px;
             font-weight: 700;
-            color: var(--text);
+            color: var(--t)
         }
 
-        .testi-role {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 2px;
+        .tr {
+            font-size: 11.5px;
+            color: var(--tl);
+            margin-top: 2px
         }
 
-        /* PRICING */
-        .pricing-section {
-            padding: 100px 6%;
-            background: var(--cream-mid);
-            border-top: 1px solid var(--cream-dark);
-            border-bottom: 1px solid var(--cream-dark);
+        /* ── PRICING ── */
+        .pricesec {
+            padding: 90px 5%;
+            background: var(--cm);
+            border-top: 1px solid var(--cd);
+            border-bottom: 1px solid var(--cd)
         }
 
-        .pricing-toggle {
+        .ptoggle {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin: 32px 0 48px;
+            gap: 10px;
+            margin: 28px 0 44px
         }
 
-        .toggle-label {
-            font-size: 14px;
+        .tgl {
+            font-size: 13.5px;
             font-weight: 500;
-            color: var(--text-mid);
+            color: var(--tm)
         }
 
-        .toggle-switch {
-            width: 44px;
-            height: 24px;
+        .tsw {
+            width: 42px;
+            height: 22px;
             border-radius: 100px;
-            background: var(--cream-dark);
+            background: var(--cd);
             position: relative;
             cursor: pointer;
-            transition: background .2s;
+            transition: background .25s;
         }
 
-        .toggle-switch.on {
-            background: var(--teal);
+        .tsw.on {
+            background: var(--teal)
         }
 
-        .toggle-thumb {
+        .tth {
             position: absolute;
-            top: 3px;
-            left: 3px;
+            top: 2px;
+            left: 2px;
             width: 18px;
             height: 18px;
             border-radius: 50%;
             background: #fff;
-            transition: transform .2s;
+            transition: transform .25s cubic-bezier(.34, 1.56, .64, 1);
             box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
         }
 
-        .toggle-switch.on .toggle-thumb {
-            transform: translateX(20px);
+        .tsw.on .tth {
+            transform: translateX(20px)
         }
 
-        .save-badge {
-            font-size: 11px;
+        .sbadge {
+            font-size: 10.5px;
             font-weight: 700;
-            color: var(--accent);
-            background: var(--accent-pale);
-            padding: 3px 8px;
-            border-radius: 100px;
-            letter-spacing: .04em;
+            color: var(--acc);
+            background: var(--accp);
+            padding: 2px 8px;
+            border-radius: 100px
         }
 
-        .pricing-cards {
+        .pcards {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 18px;
-            max-width: 760px;
-            margin: 0 auto;
+            gap: 16px;
+            max-width: 720px;
+            margin: 0 auto
         }
 
-        .price-card {
-            background: var(--white);
-            border: 1.5px solid var(--cream-dark);
-            border-radius: 24px;
-            padding: 40px;
-            transition: box-shadow .25s;
+        .pcard {
+            background: var(--w);
+            border: 1.5px solid var(--cd);
+            border-radius: 22px;
+            padding: 36px;
+            transition: transform .2s, box-shadow .2s;
         }
 
-        .price-card:hover {
-            box-shadow: 0 12px 40px rgba(26, 23, 20, .09);
+        .pcard:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--sh2)
         }
 
-        .price-card.popular {
+        .pcard.pop {
             border-color: var(--teal);
-            box-shadow: 0 0 0 1px var(--teal), 0 16px 48px rgba(26, 107, 90, .12);
+            box-shadow: 0 0 0 1px var(--teal), 0 12px 40px rgba(23, 102, 85, .12);
             position: relative;
         }
 
-        .popular-badge {
+        .pbadge {
             position: absolute;
-            top: -12px;
+            top: -11px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--teal);
             color: #fff;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 700;
-            letter-spacing: .06em;
+            letter-spacing: .05em;
             text-transform: uppercase;
-            padding: 4px 14px;
+            padding: 4px 13px;
             border-radius: 100px;
+            white-space: nowrap;
         }
 
-        .price-tier {
-            font-size: 13px;
+        .ptier {
+            font-size: 12px;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--tl);
             letter-spacing: .07em;
             text-transform: uppercase;
-            margin-bottom: 14px;
+            margin-bottom: 12px
         }
 
-        .price-amount {
+        .pamt {
             display: flex;
             align-items: baseline;
-            gap: 4px;
-            margin-bottom: 24px;
+            gap: 3px;
+            margin-bottom: 22px
         }
 
-        .price-dollar {
+        .pdollar {
             font-family: 'Fraunces', serif;
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 600;
-            color: var(--text);
-            letter-spacing: -0.03em;
+            color: var(--t);
+            letter-spacing: -.03em
         }
 
-        .price-period {
-            font-size: 14px;
-            color: var(--text-light);
+        .pperiod {
+            font-size: 13.5px;
+            color: var(--tl)
         }
 
-        .price-features {
+        .pfeats {
             list-style: none;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 9px
         }
 
-        .price-features li {
+        .pfeats li {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: var(--text-mid);
+            gap: 9px;
+            font-size: 13.5px;
+            color: var(--tm)
         }
 
-        .check {
+        .ck {
             color: var(--teal);
-            font-size: 15px;
-            flex-shrink: 0;
+            font-size: 14px;
+            flex-shrink: 0
         }
 
-        .price-btn {
+        .pbtn {
             width: 100%;
-            padding: 13px;
+            padding: 12px;
             border-radius: 100px;
             font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 600;
             cursor: pointer;
-            transition: background .2s, transform .15s;
+            transition: all .2s;
         }
 
-        .price-btn-outline {
+        .pbo {
             background: transparent;
-            color: var(--text);
-            border: 1.5px solid var(--cream-dark);
+            color: var(--t);
+            border: 1.5px solid var(--cd)
         }
 
-        .price-btn-outline:hover {
-            border-color: var(--text);
+        .pbo:hover {
+            border-color: var(--t);
+            transform: translateY(-1px)
         }
 
-        .price-btn-filled {
+        .pbf {
             background: var(--teal);
             color: #fff;
-            border: none;
+            border: none
         }
 
-        .price-btn-filled:hover {
-            background: var(--teal-light);
+        .pbf:hover {
+            background: var(--teal2);
             transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(23, 102, 85, .2)
         }
 
-        /* FAQ */
-        .faq-section {
-            padding: 100px 6%;
+        /* ── FAQ ── */
+        .faq {
+            padding: 90px 5%
         }
 
-        .faq-list {
-            max-width: 700px;
-            margin: 48px auto 0;
+        .faqlist {
+            max-width: 660px;
+            margin: 44px auto 0
         }
 
-        .faq-item {
-            border-bottom: 1px solid var(--cream-dark);
+        .faqitem {
+            border-bottom: 1px solid var(--cd)
         }
 
-        .faq-q {
+        .faqq {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 22px 0;
+            padding: 20px 0;
             cursor: pointer;
-            font-size: 15.5px;
+            gap: 14px;
+            font-size: 15px;
             font-weight: 500;
-            color: var(--text);
-            transition: color .2s;
-            gap: 16px;
+            color: var(--t);
+            transition: color .15s;
         }
 
-        .faq-q:hover {
-            color: var(--teal);
+        .faqq:hover {
+            color: var(--teal)
         }
 
-        .faq-chevron {
+        .faqch {
             font-size: 18px;
-            color: var(--text-light);
-            transition: transform .3s, color .2s;
+            color: var(--tl);
+            transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), color .15s;
             flex-shrink: 0;
         }
 
-        .faq-item.open .faq-chevron {
+        .faqitem.open .faqch {
             transform: rotate(180deg);
-            color: var(--teal);
+            color: var(--teal)
         }
 
-        .faq-a {
-            font-size: 14.5px;
-            color: var(--text-mid);
-            line-height: 1.7;
+        .faqa {
+            font-size: 14px;
+            color: var(--tm);
+            line-height: 1.72;
             max-height: 0;
             overflow: hidden;
             transition: max-height .4s ease, padding .3s;
         }
 
-        .faq-item.open .faq-a {
-            max-height: 200px;
-            padding-bottom: 20px;
+        .faqitem.open .faqa {
+            max-height: 180px;
+            padding-bottom: 18px
         }
 
-        /* CTA BANNER */
-        .cta-banner {
+        /* ── CTA BANNER ── */
+        .ctaban {
             position: relative;
             overflow: hidden;
             background: var(--teal);
-            padding: 100px 6%;
+            padding: 90px 5%;
             text-align: center;
         }
 
-        .cta-banner::before {
+        .ctaban::before {
             content: '';
             position: absolute;
             inset: 0;
-            background-image: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, .06) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, .04) 0%, transparent 40%);
+            background: radial-gradient(ellipse 80% 60% at 30% 40%, rgba(255, 255, 255, .07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 75% 65%, rgba(255, 255, 255, .04) 0%, transparent 50%);
         }
 
-        .cta-banner h2 {
-            font-size: clamp(2.2rem, 4vw, 4rem);
+        .ctaban h2 {
+            font-size: clamp(2.2rem, 4vw, 3.8rem);
             color: #fff;
             line-height: 1.1;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             font-weight: 500;
             position: relative;
         }
 
-        .cta-banner h2 em {
+        .ctaban h2 em {
             font-style: italic;
-            color: rgba(255, 255, 255, .75);
+            color: rgba(255, 255, 255, .72)
         }
 
-        .cta-banner>p {
-            font-size: 17px;
-            color: rgba(255, 255, 255, .7);
-            margin-bottom: 44px;
-            position: relative;
+        .ctaban>p {
+            font-size: 16.5px;
+            color: rgba(255, 255, 255, .68);
+            margin-bottom: 40px;
+            position: relative
         }
 
-        .cta-btns {
+        .ctabtns {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
             flex-wrap: wrap;
-            position: relative;
+            position: relative
         }
 
-        .cta-btn-white {
+        .cbw {
             background: #fff;
             color: var(--teal);
-            padding: 15px 30px;
+            padding: 14px 28px;
             border-radius: 100px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             transition: transform .15s, box-shadow .2s;
         }
 
-        .cta-btn-white:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, .15);
+        .cbw:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .15)
         }
 
-        .cta-btn-outline {
+        .cbo {
             background: transparent;
             color: #fff;
-            padding: 15px 30px;
+            padding: 14px 28px;
             border-radius: 100px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 600;
-            border: 1.5px solid rgba(255, 255, 255, .4);
-            transition: border-color .2s;
+            border: 1.5px solid rgba(255, 255, 255, .38);
+            transition: border-color .2s, transform .15s;
         }
 
-        .cta-btn-outline:hover {
+        .cbo:hover {
             border-color: #fff;
+            transform: translateY(-1px)
         }
 
-        /* FOOTER */
+        /* ── FOOTER ── */
         footer {
-            background: #141210;
-            padding: 64px 6% 40px;
+            background: #131110;
+            padding: 56px 5% 36px
         }
 
-        .footer-grid {
-            max-width: 1060px;
+        .fg2 {
+            max-width: 1020px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 56px;
+            gap: 36px;
+            margin-bottom: 48px;
         }
 
-        .footer-brand .logo-name {
-            color: #fff;
+        .fb .ln {
+            color: #fff
         }
 
-        .footer-brand p {
-            font-size: 13.5px;
-            color: rgba(255, 255, 255, .4);
-            line-height: 1.6;
-            margin-top: 12px;
-            max-width: 200px;
+        .fb p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, .38);
+            line-height: 1.65;
+            margin-top: 10px;
+            max-width: 190px
         }
 
-        .footer-col h5 {
-            font-size: 11px;
+        .fcol h5 {
+            font-size: 10.5px;
             font-weight: 700;
             letter-spacing: .1em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, .45);
-            margin-bottom: 16px;
+            color: rgba(255, 255, 255, .38);
+            margin-bottom: 14px
         }
 
-        .footer-col a {
+        .fcol a {
             display: block;
-            font-size: 13.5px;
-            color: rgba(255, 255, 255, .4);
-            margin-bottom: 9px;
-            transition: color .2s;
+            font-size: 13px;
+            color: rgba(255, 255, 255, .38);
+            margin-bottom: 8px;
+            transition: color .15s
         }
 
-        .footer-col a:hover {
-            color: #fff;
+        .fcol a:hover {
+            color: #fff
         }
 
-        .footer-bottom {
-            max-width: 1060px;
+        .fbot {
+            max-width: 1020px;
             margin: 0 auto;
-            border-top: 1px solid rgba(255, 255, 255, .07);
-            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            padding-top: 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, .3);
+            gap: 8px;
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, .28);
         }
 
-        .footer-status {
+        .fstat {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px
         }
 
-        .status-dot {
-            width: 6px;
-            height: 6px;
+        .sdot {
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background: #22C55E;
-            animation: pulseg 2s ease-in-out infinite;
+            animation: pulse 2s infinite;
         }
 
-        @keyframes pulseg {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(34, 197, 94, .4);
+        /* ── GLOBAL ANIMATIONS ── */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-16px)
             }
 
-            50% {
-                box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+            to {
+                opacity: 1;
+                transform: translateY(0)
             }
         }
 
-        /* REVEAL */
-        .reveal {
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* ── REVEAL ── */
+        .rv {
             opacity: 0;
-            transform: translateY(22px);
-            transition: opacity .8s cubic-bezier(.16, 1, .3, 1), transform .8s cubic-bezier(.16, 1, .3, 1);
+            transform: translateY(20px);
+            transition: opacity .75s cubic-bezier(.16, 1, .3, 1), transform .75s cubic-bezier(.16, 1, .3, 1)
         }
 
-        .reveal.visible {
+        .rv.in {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0)
         }
 
         .d1 {
-            transition-delay: .07s;
+            transition-delay: .06s
         }
 
         .d2 {
-            transition-delay: .14s;
+            transition-delay: .12s
         }
 
         .d3 {
-            transition-delay: .21s;
+            transition-delay: .18s
         }
 
         .d4 {
-            transition-delay: .28s;
+            transition-delay: .24s
         }
 
         .d5 {
-            transition-delay: .35s;
+            transition-delay: .30s
         }
 
-        /* RESPONSIVE */
-        @media(max-width:960px) {
-            .features-grid {
-                grid-template-columns: 1fr 1fr;
+        /* ── RESPONSIVE ── */
+        @media(max-width:920px) {
+            .fg {
+                grid-template-columns: 1fr 1fr
             }
 
-            .how-layout {
+            .how-grid {
+                grid-template-columns: 1fr
+            }
+
+            .how-vis {
+                display: none
+            }
+
+            .tg {
                 grid-template-columns: 1fr;
+                max-width: 440px;
+                margin: 0 auto
             }
 
-            .how-image {
-                display: none;
-            }
-
-            .testimonials-grid {
+            .pcards {
                 grid-template-columns: 1fr;
-                max-width: 480px;
-                margin: 0 auto;
+                max-width: 400px
             }
 
-            .pricing-cards {
-                grid-template-columns: 1fr;
-                max-width: 420px;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
+            .fg2 {
+                grid-template-columns: 1fr 1fr
             }
 
             .stats-inner {
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr
             }
 
-            .stat-divider {
-                display: none;
+            .sdiv {
+                display: none
             }
         }
 
-        @media(max-width:640px) {
+        @media(max-width:600px) {
             .nav-links {
-                display: none;
+                display: none
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
+            .fg {
+                grid-template-columns: 1fr
             }
 
-            .footer-grid {
-                grid-template-columns: 1fr;
+            .fg2 {
+                grid-template-columns: 1fr
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center
             }
         }
     </style>
@@ -1195,16 +1436,16 @@
 <body>
 
     <!-- NAV -->
-    <nav>
+    <nav id="nav">
         <a href="#" class="logo">
-            <div class="logo-mark">
-                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"
+            <div class="lm">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round"
                     stroke-linejoin="round">
                     <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                     <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
             </div>
-            <span class="logo-name">ARCA</span>
+            <span class="ln">ARCA</span>
         </a>
         <ul class="nav-links">
             <li><a href="#features">Features</a></li>
@@ -1212,181 +1453,164 @@
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#faq">FAQ</a></li>
         </ul>
-        <div class="nav-right">
-            <a href="#" class="nav-signin">Sign in</a>
-            <a href="#cta" class="nav-cta">Start Free Trial</a>
+        <div class="nav-r">
+            <a href="#" class="nsign">Sign in</a>
+            <a href="#cta" class="ncta">Start Free Trial</a>
         </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge reveal"><span class="badge-dot"></span>AI-Powered Real Estate CRM</div>
-        <h1 class="reveal d1">Your inbox is full.<br />Your pipeline is <em>waiting.</em></h1>
-        <p class="hero-sub reveal d2">ARCA reads every email, ranks your hottest leads, and drafts follow-ups — all
-            before your first coffee. The AI companion built for agents who refuse to let deals slip.</p>
-        <div class="hero-btns reveal d3">
-            <a href="#cta" class="btn-primary">Start Free — No credit card</a>
-            <a href="#how" class="btn-ghost">See it in action ↓</a>
+        <div class="badge"><span class="bdot"></span>AI-Powered Real Estate CRM</div>
+        <h1>Your inbox is full.<br />Your pipeline is <em>waiting.</em></h1>
+        <p class="hero-sub">ARCA reads every email, ranks your hottest leads, and drafts follow-ups — all before your
+            first coffee.</p>
+        <div class="hero-btns">
+            <button class="bp" onclick="location.href='#cta'">Start Free — No credit card</button>
+            <button class="bg" onclick="location.href='#how'">See it in action ↓</button>
         </div>
-        <div class="hero-visual reveal d4">
-            <div class="hero-property">
-                <div class="hero-property-text">
-                    <h3>Oak Ridge Villa</h3>
-                    <p>$2,400,000 · 5 bed · 4 bath · Malibu, CA</p>
+
+        <!-- Live dashboard -->
+        <div class="hero-dash">
+            <div class="dash-shell">
+                <div class="dash-bar">
+                    <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
+                    <span class="dash-label">ARCA Intelligence</span>
+                    <div class="dash-live"><span class="live-dot"></span>Live</div>
                 </div>
-            </div>
-            <div class="hero-notif">
-                <div class="notif-icon">🔔</div>
-                <div>
-                    <div class="notif-title">New lead captured</div>
-                    <div class="notif-sub">Sarah Jenkins · Zillow inquiry · Just now</div>
+                <div class="dash-body" id="dash-feed">
+                    <!-- Cards injected by JS -->
                 </div>
-            </div>
-            <div class="hero-notif2">
-                <span class="priority-dot"></span>
-                <span class="notif2-text">3 hot leads need replies</span>
             </div>
         </div>
     </section>
 
     <!-- STATS -->
-    <div class="stats-bar reveal">
+    <div class="stats rv">
         <div class="stats-inner">
             <div class="stat">
-                <div class="stat-num">2,400+</div>
-                <div class="stat-label">Agents Onboarded</div>
+                <div class="sn" data-target="2400" data-suffix="+">0</div>
+                <div class="sl">Agents Onboarded</div>
             </div>
-            <div class="stat-divider"></div>
+            <div class="sdiv"></div>
             <div class="stat">
-                <div class="stat-num">94%</div>
-                <div class="stat-label">Lead Response Rate</div>
+                <div class="sn" data-target="94" data-suffix="%">0</div>
+                <div class="sl">Lead Response Rate</div>
             </div>
-            <div class="stat-divider"></div>
+            <div class="sdiv"></div>
             <div class="stat">
-                <div class="stat-num">3.2 hrs</div>
-                <div class="stat-label">Saved Per Agent / Day</div>
+                <div class="sn" data-target="3.2" data-suffix=" hrs" data-float="true">0</div>
+                <div class="sl">Saved Per Agent / Day</div>
             </div>
         </div>
     </div>
 
     <!-- FEATURES -->
-    <section class="section" id="features">
-        <div class="section-inner">
-            <div class="section-center reveal">
-                <span class="section-label">What ARCA does</span>
-                <h2 class="section-h">Built for agents. Powered by AI.</h2>
-                <p class="section-sub">ARCA handles the repetitive work — so you're always the one closing.</p>
+    <section class="sec" id="features">
+        <div class="si">
+            <div class="sc rv">
+                <div class="slbl">What ARCA does</div>
+                <h2 class="sh">Built for agents. Powered by AI.</h2>
+                <p class="ss">ARCA handles the repetitive work — so you're always the one closing.</p>
             </div>
-            <div class="features-grid">
-                <div class="feat-card reveal d1">
-                    <div class="feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="1.8">
+            <div class="fg">
+                <div class="fc rv d1">
+                    <div class="fi"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg></div>
                     <h4>Gmail Intelligence</h4>
-                    <p>ARCA reads your full inbox — 90 days of history — and surfaces every lead signal automatically.
-                        No setup, no tags, no training.</p>
+                    <p>ARCA reads your full inbox — 90 days of history — and surfaces every lead automatically. No
+                        setup, no tags, no training.</p>
                 </div>
-                <div class="feat-card reveal d2">
-                    <div class="feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="1.8">
+                <div class="fc rv d2">
+                    <div class="fi"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                         </svg></div>
                     <h4>Instant Lead Ranking</h4>
                     <p>Every contact gets a live priority score. Hot, warm, or watching — you always know who to call
-                        next without second-guessing.</p>
+                        next.</p>
                 </div>
-                <div class="feat-card reveal d3">
-                    <div class="feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="1.8">
+                <div class="fc rv d3">
+                    <div class="fi"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg></div>
                     <h4>AI Follow-Up Drafts</h4>
-                    <p>ARCA writes personalized follow-up emails in your voice. Review, edit, and send — or let it
-                        auto-send on your approval.</p>
+                    <p>ARCA writes personalized follow-ups in your voice. Review, edit, and send — or let it auto-send
+                        on approval.</p>
                 </div>
-                <div class="feat-card reveal d1">
-                    <div class="feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="1.8">
+                <div class="fc rv d1">
+                    <div class="fi"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg></div>
                     <h4>Calendar Scheduling</h4>
-                    <p>Book showings directly from the lead page. ARCA syncs with Google Calendar and sends confirmation
-                        emails automatically.</p>
+                    <p>Book showings directly from the lead page. Syncs with Google Calendar and sends confirmations
+                        automatically.</p>
                 </div>
-                <div class="feat-card reveal d2">
-                    <div class="feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="1.8">
+                <div class="fc rv d2">
+                    <div class="fi"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg></div>
                     <h4>Ask ARCA Anything</h4>
-                    <p>Your AI companion answers questions, pulls contact history, and gives briefings — just like a
-                        top-performing assistant.</p>
+                    <p>Your AI companion answers questions, pulls contact history, and gives briefings like a top
+                        assistant.</p>
                 </div>
-                <div class="feat-card reveal d3">
-                    <div class="feat-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            stroke-width="1.8">
+                <div class="fc rv d3">
+                    <div class="fi"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                         </svg></div>
                     <h4>Pipeline at a Glance</h4>
-                    <p>Drag-and-drop deal stages. See your entire book of business in one view — without updating
-                        anything manually.</p>
+                    <p>Drag-and-drop deal stages. See your entire book of business in one view — no manual updates.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- HOW IT WORKS -->
-    <section class="how-section" id="how">
-        <div class="section-inner" style="max-width:1060px;">
-            <div class="section-center reveal">
-                <span class="section-label">Process</span>
-                <h2 class="section-h">From inbox to offer in minutes.</h2>
-                <p class="section-sub">Setup takes under two minutes. After that, ARCA does the heavy lifting.</p>
+    <section class="how" id="how">
+        <div class="si" style="max-width:1020px">
+            <div class="sc rv">
+                <div class="slbl">Process</div>
+                <h2 class="sh">From inbox to offer in minutes.</h2>
+                <p class="ss">Setup takes under two minutes. Then ARCA does the heavy lifting.</p>
             </div>
-            <div class="how-layout">
-                <div class="how-steps reveal">
-                    <div class="how-step">
-                        <div class="step-num-badge">01</div>
-                        <div class="step-content">
+            <div class="how-grid">
+                <div class="steps rv">
+                    <div class="step">
+                        <div class="snb">01</div>
+                        <div class="sc2">
                             <h4>Connect your Gmail</h4>
                             <p>One click. No CSV uploads, no manual data entry. ARCA ingests your last 90 days of emails
                                 in under 2 minutes.</p>
                         </div>
                     </div>
-                    <div class="how-step">
-                        <div class="step-num-badge">02</div>
-                        <div class="step-content">
+                    <div class="step">
+                        <div class="snb">02</div>
+                        <div class="sc2">
                             <h4>ARCA gets to work</h4>
                             <p>Every lead is found, ranked, and scored. Your pipeline builds itself — with full context
-                                from every email thread.</p>
+                                from every thread.</p>
                         </div>
                     </div>
-                    <div class="how-step">
-                        <div class="step-num-badge">03</div>
-                        <div class="step-content">
+                    <div class="step">
+                        <div class="snb">03</div>
+                        <div class="sc2">
                             <h4>You close the deal</h4>
-                            <p>Review ARCA's drafted follow-ups, book showings from the lead page, and ask questions in
-                                plain English. You stay in control.</p>
+                            <p>Review drafted follow-ups, book showings from the lead page, and ask questions in plain
+                                English. You stay in control.</p>
                         </div>
                     </div>
                 </div>
-                <div class="how-image reveal d2">
-                    <div class="how-image-inner">
-                        <div style="text-align:center;padding:40px;">
-                            <div style="font-size:56px;margin-bottom:16px;">🏡</div>
-                            <div
-                                style="font-family:'Fraunces',serif;font-size:1.5rem;color:#1A3830;font-weight:500;line-height:1.3;">
-                                Your next deal is<br />already in your inbox.</div>
-                            <div style="font-size:13px;color:rgba(26,56,48,.6);margin-top:10px;font-weight:500;">ARCA
-                                finds it. You close it.</div>
-                        </div>
+                <div class="how-vis rv d2">
+                    <div class="how-vis-inner">
+                        <div class="big">🏡</div>
+                        <h3>Your next deal is<br />already in your inbox.</h3>
+                        <p>ARCA finds it. You close it.</p>
                     </div>
                 </div>
             </div>
@@ -1394,44 +1618,44 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="testimonials-section">
-        <div class="section-inner" style="max-width:1060px;">
-            <h2 class="testi-kicker reveal">"I never miss a lead <span>anymore.</span>"</h2>
-            <p class="testi-sub reveal d1">Real agents. Real results.</p>
-            <div class="testimonials-grid">
-                <div class="testi-card reveal d1">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-quote">"Before ARCA, I'd lose leads in my inbox for weeks. Now my pipeline basically
-                        manages itself. I closed 2 extra deals last month just from emails I would have missed."</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">S</div>
+    <section class="sec">
+        <div class="si" style="max-width:1020px">
+            <h2 class="tq rv">"I never miss a lead <span>anymore.</span>"</h2>
+            <p class="tsub rv d1">Real agents. Real results.</p>
+            <div class="tg">
+                <div class="tc rv d1">
+                    <div class="tstars">★★★★★</div>
+                    <p class="ttext">"Before ARCA, I'd lose leads in my inbox for weeks. Now my pipeline basically
+                        manages itself. I closed 2 extra deals last month from emails I would have missed."</p>
+                    <div class="tauth">
+                        <div class="tav">S</div>
                         <div>
-                            <div class="testi-name">Sarah Chen</div>
-                            <div class="testi-role">Buyer's Agent — Los Angeles, CA</div>
+                            <div class="tn">Sarah Chen</div>
+                            <div class="tr">Buyer's Agent — Los Angeles, CA</div>
                         </div>
                     </div>
                 </div>
-                <div class="testi-card reveal d2">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-quote">"The follow-up drafts are scary good. My clients think I respond instantly.
-                        ARCA writes in my voice better than I would have written it myself."</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">M</div>
+                <div class="tc rv d2">
+                    <div class="tstars">★★★★★</div>
+                    <p class="ttext">"The follow-up drafts are scary good. My clients think I respond instantly. ARCA
+                        writes in my voice better than I would have."</p>
+                    <div class="tauth">
+                        <div class="tav">M</div>
                         <div>
-                            <div class="testi-name">Marcus Williams</div>
-                            <div class="testi-role">Realtor — Austin, TX</div>
+                            <div class="tn">Marcus Williams</div>
+                            <div class="tr">Realtor — Austin, TX</div>
                         </div>
                     </div>
                 </div>
-                <div class="testi-card reveal d3">
-                    <div class="testi-stars">★★★★★</div>
-                    <p class="testi-quote">"I was skeptical about AI but ARCA is not a gimmick. It's the first tool that
+                <div class="tc rv d3">
+                    <div class="tstars">★★★★★</div>
+                    <p class="ttext">"I was skeptical about AI but ARCA is not a gimmick. It's the first tool that
                         actually understands how real estate agents work."</p>
-                    <div class="testi-author">
-                        <div class="testi-avatar">P</div>
+                    <div class="tauth">
+                        <div class="tav">P</div>
                         <div>
-                            <div class="testi-name">Priya Mehta</div>
-                            <div class="testi-role">Top Producer — Miami, FL</div>
+                            <div class="tn">Priya Mehta</div>
+                            <div class="tr">Top Producer — Miami, FL</div>
                         </div>
                     </div>
                 </div>
@@ -1440,161 +1664,267 @@
     </section>
 
     <!-- PRICING -->
-    <section class="pricing-section" id="pricing">
-        <div class="section-inner">
-            <div class="section-center reveal">
-                <span class="section-label">Pricing</span>
-                <h2 class="section-h">Simple pricing. No surprises.</h2>
-                <p class="section-sub">Start free. Upgrade when you're ready. Cancel anytime.</p>
+    <section class="pricesec" id="pricing">
+        <div class="si">
+            <div class="sc rv">
+                <div class="slbl">Pricing</div>
+                <h2 class="sh">Simple pricing. No surprises.</h2>
+                <p class="ss">Start free. Upgrade when you're ready. Cancel anytime.</p>
             </div>
-            <div class="pricing-toggle reveal d1">
-                <span class="toggle-label">Monthly</span>
-                <div class="toggle-switch" id="billing-toggle" onclick="this.classList.toggle('on')">
-                    <div class="toggle-thumb"></div>
+            <div class="ptoggle rv d1">
+                <span class="tgl">Monthly</span>
+                <div class="tsw" id="ptgl" onclick="this.classList.toggle('on')">
+                    <div class="tth"></div>
                 </div>
-                <span class="toggle-label">Annual</span>
-                <span class="save-badge">Save 20%</span>
+                <span class="tgl">Annual</span>
+                <span class="sbadge">Save 20%</span>
             </div>
-            <div class="pricing-cards reveal d2">
-                <div class="price-card">
-                    <div class="price-tier">Starter</div>
-                    <div class="price-amount"><span class="price-dollar">$49</span><span class="price-period">/mo</span>
-                    </div>
-                    <ul class="price-features">
-                        <li><span class="check">✓</span> Up to 200 leads tracked</li>
-                        <li><span class="check">✓</span> Gmail integration</li>
-                        <li><span class="check">✓</span> AI lead ranking</li>
-                        <li><span class="check">✓</span> 50 follow-up drafts/month</li>
-                        <li><span class="check">✓</span> Email support</li>
+            <div class="pcards rv d2">
+                <div class="pcard">
+                    <div class="ptier">Starter</div>
+                    <div class="pamt"><span class="pdollar">$49</span><span class="pperiod">/mo</span></div>
+                    <ul class="pfeats">
+                        <li><span class="ck">✓</span>Up to 200 leads tracked</li>
+                        <li><span class="ck">✓</span>Gmail integration</li>
+                        <li><span class="ck">✓</span>AI lead ranking</li>
+                        <li><span class="ck">✓</span>50 follow-up drafts/month</li>
+                        <li><span class="ck">✓</span>Email support</li>
                     </ul>
-                    <button class="price-btn price-btn-outline">Start Free Trial</button>
+                    <button class="pbtn pbo">Start Free Trial</button>
                 </div>
-                <div class="price-card popular">
-                    <div class="popular-badge">Most Popular</div>
-                    <div class="price-tier">Pro</div>
-                    <div class="price-amount"><span class="price-dollar">$99</span><span class="price-period">/mo</span>
-                    </div>
-                    <ul class="price-features">
-                        <li><span class="check">✓</span> Unlimited leads</li>
-                        <li><span class="check">✓</span> Gmail + Google Calendar</li>
-                        <li><span class="check">✓</span> Unlimited AI follow-up drafts</li>
-                        <li><span class="check">✓</span> Auto-send with approval</li>
-                        <li><span class="check">✓</span> Priority support</li>
-                        <li><span class="check">✓</span> Pipeline analytics</li>
+                <div class="pcard pop">
+                    <div class="pbadge">Most Popular</div>
+                    <div class="ptier">Pro</div>
+                    <div class="pamt"><span class="pdollar">$99</span><span class="pperiod">/mo</span></div>
+                    <ul class="pfeats">
+                        <li><span class="ck">✓</span>Unlimited leads</li>
+                        <li><span class="ck">✓</span>Gmail + Google Calendar</li>
+                        <li><span class="ck">✓</span>Unlimited AI follow-up drafts</li>
+                        <li><span class="ck">✓</span>Auto-send with approval</li>
+                        <li><span class="ck">✓</span>Priority support</li>
+                        <li><span class="ck">✓</span>Pipeline analytics</li>
                     </ul>
-                    <button class="price-btn price-btn-filled">Start Free Trial</button>
+                    <button class="pbtn pbf">Start Free Trial</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FAQ -->
-    <section class="faq-section" id="faq">
-        <div class="section-inner">
-            <div class="section-center reveal">
-                <span class="section-label">FAQ</span>
-                <h2 class="section-h">Questions we always get.</h2>
+    <section class="faq" id="faq">
+        <div class="si">
+            <div class="sc rv">
+                <div class="slbl">FAQ</div>
+                <h2 class="sh">Questions we always get.</h2>
             </div>
-            <div class="faq-list reveal d1">
-                <div class="faq-item">
-                    <div class="faq-q" onclick="toggleFaq(this)">Does ARCA read all my emails?<span
-                            class="faq-chevron">⌄</span></div>
-                    <div class="faq-a">ARCA only reads emails relevant to real estate leads — it looks for inquiry
-                        intent, property mentions, and contact information. It never reads personal emails unrelated to
-                        your work.</div>
+            <div class="faqlist rv d1">
+                <div class="faqitem">
+                    <div class="faqq" onclick="toggleFaq(this)">Does ARCA read all my emails?<span
+                            class="faqch">⌄</span></div>
+                    <div class="faqa">ARCA only reads emails relevant to real estate leads — looking for inquiry intent,
+                        property mentions, and contact info. Personal emails unrelated to your work are ignored.</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-q" onclick="toggleFaq(this)">Do I need to set anything up?<span
-                            class="faq-chevron">⌄</span></div>
-                    <div class="faq-a">Just connect your Gmail with one click. There's no tagging, no training, and no
-                        CSV uploads. ARCA figures out your pipeline from your existing email history automatically.
-                    </div>
+                <div class="faqitem">
+                    <div class="faqq" onclick="toggleFaq(this)">Do I need to set anything up?<span
+                            class="faqch">⌄</span></div>
+                    <div class="faqa">Just connect Gmail with one click. No tagging, no training, no CSV uploads. ARCA
+                        figures out your pipeline from your existing email history automatically.</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-q" onclick="toggleFaq(this)">Will my clients know AI is involved?<span
-                            class="faq-chevron">⌄</span></div>
-                    <div class="faq-a">No. ARCA drafts replies in your voice and you review before sending. Your clients
+                <div class="faqitem">
+                    <div class="faqq" onclick="toggleFaq(this)">Will my clients know AI is involved?<span
+                            class="faqch">⌄</span></div>
+                    <div class="faqa">No. ARCA drafts replies in your voice and you review before sending. Your clients
                         see a message from you — not from a bot.</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-q" onclick="toggleFaq(this)">Can I try it before paying?<span
-                            class="faq-chevron">⌄</span></div>
-                    <div class="faq-a">Yes — ARCA offers a free trial with no credit card required. You get full access
-                        to all Pro features for 14 days.</div>
+                <div class="faqitem">
+                    <div class="faqq" onclick="toggleFaq(this)">Can I try it before paying?<span class="faqch">⌄</span>
+                    </div>
+                    <div class="faqa">Yes — free trial with no credit card required. Full access to all Pro features for
+                        14 days.</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-q" onclick="toggleFaq(this)">What happens to my data?<span
-                            class="faq-chevron">⌄</span></div>
-                    <div class="faq-a">Your data is encrypted at rest and in transit. We never sell your data or use it
-                        to train AI models. You can delete everything at any time.</div>
+                <div class="faqitem">
+                    <div class="faqq" onclick="toggleFaq(this)">What happens to my data?<span class="faqch">⌄</span>
+                    </div>
+                    <div class="faqa">Your data is encrypted at rest and in transit. We never sell it or use it to train
+                        AI models. Delete everything at any time.</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-q" onclick="toggleFaq(this)">Does it work with my existing CRM?<span
-                            class="faq-chevron">⌄</span></div>
-                    <div class="faq-a">ARCA works as a standalone CRM or alongside tools like Salesforce and Follow Up
-                        Boss. Native integrations are in active development.</div>
+                <div class="faqitem">
+                    <div class="faqq" onclick="toggleFaq(this)">Does it work with my existing CRM?<span
+                            class="faqch">⌄</span></div>
+                    <div class="faqa">ARCA works standalone or alongside Salesforce, Follow Up Boss, and others. Native
+                        integrations are actively being built.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA BANNER -->
-    <section class="cta-banner" id="cta">
-        <h2 class="reveal">Your next deal is already<br /><em>in your inbox.</em></h2>
-        <p class="reveal d1">ARCA finds it. You close it.</p>
-        <div class="cta-btns reveal d2">
-            <a href="#" class="cta-btn-white">Start Free Trial</a>
-            <a href="#" class="cta-btn-outline">Book a Demo →</a>
+    <!-- CTA -->
+    <section class="ctaban" id="cta">
+        <h2 class="rv">Your next deal is already<br /><em>in your inbox.</em></h2>
+        <p class="rv d1">ARCA finds it. You close it.</p>
+        <div class="ctabtns rv d2">
+            <a href="#" class="cbw">Start Free Trial</a>
+            <a href="#" class="cbo">Book a Demo →</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
+        <div class="fg2">
+            <div class="fb">
                 <div class="logo">
-                    <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"
-                            stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                    <div class="lm"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3"
+                            stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
                             <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                             <polyline points="9 22 9 12 15 12 15 22" />
-                        </svg></div>
-                    <span class="logo-name">ARCA</span>
+                        </svg></div><span class="ln">ARCA</span>
                 </div>
                 <p>AI-native CRM for real estate agents.<br />© 2026 ARCA, Inc.</p>
             </div>
-            <div class="footer-col">
+            <div class="fcol">
                 <h5>Product</h5><a href="#">Features</a><a href="#">How It Works</a><a href="#">Pricing</a><a
                     href="#">Changelog</a>
             </div>
-            <div class="footer-col">
+            <div class="fcol">
                 <h5>Company</h5><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Press</a>
             </div>
-            <div class="footer-col">
+            <div class="fcol">
                 <h5>Legal</h5><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Security</a>
             </div>
-            <div class="footer-col">
+            <div class="fcol">
                 <h5>Connect</h5><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">Contact</a>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="fbot">
             <span>Designed in California</span>
-            <div class="footer-status"><span class="status-dot"></span> All systems operational</div>
+            <div class="fstat"><span class="sdot"></span>All systems operational</div>
         </div>
     </footer>
 
     <script>
-        // Scroll reveal
-        const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        /* ── NAV SCROLL SHADOW ── */
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10)
+        })
 
-        // FAQ accordion
+        /* ── REVEAL ON SCROLL ── */
+        const ro = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target) } })
+        }, { threshold: 0.1 })
+        document.querySelectorAll('.rv').forEach(el => ro.observe(el))
+
+        /* ── ANIMATED STAT COUNTERS ── */
+        function animateCounter(el) {
+            const target = parseFloat(el.dataset.target)
+            const suffix = el.dataset.suffix || ''
+            const isFloat = el.dataset.float === 'true'
+            const duration = 1800
+            const start = performance.now()
+            function step(now) {
+                const progress = Math.min((now - start) / duration, 1)
+                const ease = 1 - Math.pow(1 - progress, 3)
+                const val = target * ease
+                el.textContent = (isFloat ? val.toFixed(1) : Math.round(val).toLocaleString()) + suffix
+                if (progress < 1) requestAnimationFrame(step)
+            }
+            requestAnimationFrame(step)
+        }
+        const so = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting && e.target.dataset.target) {
+                    animateCounter(e.target); so.unobserve(e.target)
+                }
+            })
+        }, { threshold: 0.5 })
+        document.querySelectorAll('[data-target]').forEach(el => so.observe(el))
+
+        /* ── LIVE DASHBOARD ── */
+        const events = [
+            {
+                icon: '🔔', bg: '#EEF4FF', title: 'New Lead Captured', badge: 'tag-new', badgeText: 'Just now',
+                text: 'Sarah Jenkins inquired about Oak Ridge Villa on Zillow. Follow-up drafted.',
+                actions: `<button class="abt abt-p">Approve Draft</button><button class="abt abt-s">Edit</button>`
+            },
+            {
+                icon: '📅', bg: '#E8F5ED', title: 'Showing Confirmed', badge: 'tag-ok', badgeText: '2h ago',
+                text: 'Mike Adams confirmed for tomorrow at 2:00 PM. Calendar blocked.',
+                actions: `<div class="atag tag-ok">✓ Synced to Google Calendar</div>`
+            },
+            {
+                icon: '⚡', bg: '#FFF1E8', title: 'Follow-up Needed', badge: 'tag-hot', badgeText: 'High Priority',
+                text: "John Smith hasn't replied to the offer sheet sent 2 days ago.",
+                actions: `<button class="abt abt-p">Send Reminder</button>`
+            },
+            {
+                icon: '🏠', bg: '#F0F4FF', title: 'Lead Ranked Hot', badge: 'tag-new', badgeText: '5m ago',
+                text: 'Emily Cho asked about 3 properties. ARCA scored her 94/100 — your hottest lead.',
+                actions: `<button class="abt abt-p">View Lead</button><button class="abt abt-s">Dismiss</button>`
+            },
+            {
+                icon: '✉️', bg: '#EEF4FF', title: 'Draft Ready', badge: 'tag-new', badgeText: 'Just now',
+                text: "Reply to Robert Kim's inquiry drafted and personalized to Sunset Ave listing.",
+                actions: `<button class="abt abt-p">Approve Draft</button><button class="abt abt-s">Edit</button>`
+            },
+        ]
+
+        function makeCard(ev, animate) {
+            return `
+  <div class="acard${animate ? ' new-card' : ''}">
+    <div class="acard-icon" style="background:${ev.bg}">${ev.icon}</div>
+    <div class="acard-body">
+      <div class="acard-row">
+        <span class="acard-title">${ev.title}</span>
+        <span class="atag ${ev.badge}">${ev.badgeText}</span>
+      </div>
+      <div class="acard-text">${ev.text}</div>
+      <div class="acard-actions">${ev.actions}</div>
+    </div>
+  </div>`
+        }
+
+        const feed = document.getElementById('dash-feed')
+        let shown = 3, idx = 0
+
+            // Initial cards
+            ;[events[0], events[1], events[2]].forEach(ev => {
+                feed.insertAdjacentHTML('beforeend', makeCard(ev, false))
+            })
+
+        // Cycle new cards every 3.5s
+        setInterval(() => {
+            // Show typing indicator briefly
+            const typing = document.createElement('div')
+            typing.className = 'typing'
+            typing.innerHTML = '<span></span><span></span><span></span>'
+            feed.insertAdjacentElement('afterbegin', typing)
+            setTimeout(() => {
+                typing.remove()
+                const ev = events[idx % events.length]
+                feed.insertAdjacentHTML('afterbegin', makeCard(ev, true))
+                idx++
+                // Remove last card if more than 3
+                const cards = feed.querySelectorAll('.acard')
+                if (cards.length > 3) cards[cards.length - 1].remove()
+            }, 700)
+        }, 3500)
+
+        // Button click feedback
+        feed.addEventListener('click', e => {
+            const btn = e.target.closest('.abt')
+            if (!btn) return
+            const orig = btn.textContent
+            btn.textContent = '✓ Done'
+            btn.style.background = '#176655'
+            btn.style.color = '#fff'
+            setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = '' }, 1800)
+        })
+
+        /* ── FAQ ── */
         function toggleFaq(el) {
-            const item = el.closest('.faq-item');
-            const isOpen = item.classList.contains('open');
-            document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-            if (!isOpen) item.classList.add('open');
+            const item = el.closest('.faqitem')
+            const open = item.classList.contains('open')
+            document.querySelectorAll('.faqitem.open').forEach(i => i.classList.remove('open'))
+            if (!open) item.classList.add('open')
         }
     </script>
 </body>
